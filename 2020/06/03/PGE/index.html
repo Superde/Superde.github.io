@@ -51,22 +51,11 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a target="_blank" rel="noopener" href="//Users/fartinhands/Blog/themes/matery/_config.yml" class="waves-effect waves-light">
+    <a href="http://dymzcc.github.io" class="waves-effect waves-light">
       
       <i class="fas fa-home" style="zoom: 0.6;"></i>
       
       <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
     </a>
     
   </li>
@@ -110,22 +99,11 @@
         
         <li class="m-nav-item">
 	  
-		<a target="_blank" rel="noopener" href="//Users/fartinhands/Blog/themes/matery/_config.yml" class="waves-effect waves-light">
+		<a href="http://dymzcc.github.io" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-home"></i>
 			
 			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
 		</a>
           
         </li>
@@ -378,11 +356,12 @@
 <p>（2） 偏置邻域采样以获得根据偏置参数（基于聚类结果设置）采样的较小邻域，从而使嵌入过程更具可扩展性</p>
 <p>（3） 邻域聚合通过将采样邻域的属性信息与经过神经网络训练的权重矩阵进行聚合来计算最终的低维节点嵌入。</p>
 <hr>
-<h4 id="相关定义："><a href="#相关定义：" class="headerlink" title="相关定义："></a>相关定义：</h4><p><strong>图定义</strong>：$\cal G={\cal V,\cal E,\cal P,\cal L}$，$\cal V$代表节点集，$\cal E$代表边集</p>
+<h4 id="相关定义："><a href="#相关定义：" class="headerlink" title="相关定义："></a>相关定义：</h4><p><strong>图定义</strong>：$\cal G=\{\cal V,\cal E,\cal P,\cal L\}$，$\cal V$代表节点集，$\cal E$代表边集</p>
 <p>$\cal P$ 是所有属性的集合，$\cal P=\cal P_{\cal V}\bigcup \cal P_{\cal E}$，$\cal L$是所有标签的集合，$\cal L=\cal L_{\cal V}\bigcup \cal L_{\cal E}$。</p>
 <p>$\cal N_v$为顶点 $v$ 的邻域顶点</p>
-<p><strong>相似度定义</strong>：两个顶点的相似度可分成两部分，属性相似度+拓扑结构相似度<br>$$<br>S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))<br>$$</p>
-<hr>
+<p><strong>相似度定义</strong>：两个顶点的相似度可分成两部分，属性相似度+拓扑结构相似度</p>
+<script type="math/tex; mode=display">
+S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
 <h4 id="PGE详细步骤"><a href="#PGE详细步骤" class="headerlink" title="PGE详细步骤"></a>PGE详细步骤</h4><ol>
 <li><p>基于顶点属性聚类</p>
 <p>使用K-means或者DB-SCAN等聚类算法，根据顶点的属性进行聚类，生成 k 个聚类中心，</p>
@@ -397,20 +376,15 @@
 </li>
 <li><p>邻域聚合（类似GraphSAGE中的Mean Aggregator）</p>
 <p>基于第二步获得的$N_v^s$，我们通过乘以神经网络训练的权重矩阵来汇总其属性信息以获得$z_v$。</p>
-<img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615091351473.png" alt="image-20200615091351473" style="zoom:50%;" />
-
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615091351473.png" alt="image-20200615091351473" style="zoom:50%;" /></p>
 <p>$P_v$是节点v的元素属性向量，A()表示的向量连接操作，$W^K$是参数矩阵</p>
 </li>
 <li><p>考虑边属性的邻域聚合</p>
 <p>对采样的图 G 考虑边的方向和边的属性，使用和节点属性处理相同的策略。如果边是有向边，则分别考虑in-edges和out-edges。<br>将边分成$k^e$个cluster，$C^e=C_1^e,C_2^e,…C_{k^e}^e$，然后训练2✖️$k^e$个矩阵，{$W_1^1$,$W_2^1$,…$W_{k^e}^1$}和，最后根据下{$W_1^2$,$W_2^2$,…$W_{k^e}^2$}式计算$Z_u$。</p>
 </li>
 </ol>
-<img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615092252754.png" alt="image-20200615092252754" style="zoom:35%;" />
-
-<img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200728202224548.png" alt="image-20200728202224548" style="zoom:50%;" />
-
-
-
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615092252754.png" alt="image-20200615092252754" style="zoom:35%;" /></p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200728202224548.png" alt="image-20200728202224548" style="zoom:50%;" /></p>
 <hr>
 
             </div>
@@ -844,6 +818,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </main>
 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 
     <footer class="page-footer bg-color">
@@ -1042,6 +1017,22 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 
