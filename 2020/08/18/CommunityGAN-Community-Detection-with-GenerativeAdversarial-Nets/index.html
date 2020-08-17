@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="三环三星">
+    <meta name="keywords" content="CommunityGAN: Community Detection with GenerativeAdversarial Nets, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>三环三星</title>
+    <title>CommunityGAN: Community Detection with GenerativeAdversarial Nets | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">CommunityGAN: Community Detection with GenerativeAdversarial Nets</h1>
                 </div>
             </div>
         </div>
@@ -318,12 +318,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Embedding/">
+                                <span class="chip bg-color">Embedding</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
+                                论文阅读
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -332,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-03
+                    2020-08-18
                 </div>
                 
 
@@ -348,44 +361,70 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="A-Representation-Learning-Framework-for-Property-Graphs"><a href="#A-Representation-Learning-Framework-for-Property-Graphs" class="headerlink" title="A Representation Learning Framework for Property Graphs"></a>A Representation Learning Framework for Property Graphs</h2><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>图嵌入具有重大的研究价值，目前的图嵌入方法要么只注重图的拓扑结构，要么只注重节点属性，边属性。因此，本文提出PGE，将节点属性，边属性，图的拓扑结构结合的图嵌入方法。</p>
-<hr>
-<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p><strong>PGE</strong>：PGE通过将拓扑和属性信息都结合到图嵌入过程中，采用了一种偏向方法来区分邻居和相应连接边的影响。</p>
-<p>主要步骤：</p>
-<p>（1） 基于属性的节点聚类，基于与节点的属性相似性将节点的邻域分为相似和不相似的组</p>
-<p>（2） 偏置邻域采样以获得根据偏置参数（基于聚类结果设置）采样的较小邻域，从而使嵌入过程更具可扩展性</p>
-<p>（3） 邻域聚合通过将采样邻域的属性信息与经过神经网络训练的权重矩阵进行聚合来计算最终的低维节点嵌入。</p>
-<hr>
-<h4 id="相关定义："><a href="#相关定义：" class="headerlink" title="相关定义："></a>相关定义：</h4><p><strong>图定义</strong>：$\cal G=\{\cal V,\cal E,\cal P,\cal L\}$，$\cal V$代表节点集，$\cal E$代表边集</p>
-<p>$\cal P$ 是所有属性的集合，$\cal P=\cal P_{\cal V}\bigcup \cal P_{\cal E}$，$\cal L$是所有标签的集合，$\cal L=\cal L_{\cal V}\bigcup \cal L_{\cal E}$。</p>
-<p>$\cal N_v$为顶点 $v$ 的邻域顶点</p>
-<p><strong>相似度定义</strong>：两个顶点的相似度可分成两部分，属性相似度+拓扑结构相似度</p>
+                <h1 id="CommunityGAN-Community-Detection-with-Generative-Adversarial-Nets"><a href="#CommunityGAN-Community-Detection-with-Generative-Adversarial-Nets" class="headerlink" title="CommunityGAN: Community Detection with Generative Adversarial Nets"></a>CommunityGAN: Community Detection with Generative Adversarial Nets</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        社区发现旨在找出网络中具有相似属性或者功能的节点群，如查找社交网络中属于相同组织的用户，生物医学网络中功能相似的蛋白质，引用网络中相同学科的论文集。</p>
+<p>​        近年来，随着深度学习和网络表示学习的发展，这些技术也被应用到社区发现问题中来。但是问题在于，现实的社区大部分都是重叠的，一个顶点可能会属于数十个社区，而通过网络表示学习获得顶点向量后，通常采用聚类的方法进行社区发现，而大多数的聚类算法是无法处理密集的社区重叠问题。</p>
+<p>​        本文提出了CommunityGAN，一种新颖的社区发现框架，可以用于解决重叠的社区发现和图嵌入学习问题。</p>
+<h3 id="CommunityGAN-Framework"><a href="#CommunityGAN-Framework" class="headerlink" title="CommunityGAN Framework"></a>CommunityGAN Framework</h3><p>$\cal G=(\cal V,\cal E,\cal M)$表示一张图，其中$\cal V=\{v_1,…,v_V\}$是点集，$\cal E=\{e_{ij}\}_{i,j=1}^V$是边集。</p>
+<p>$\cal M$是图 $\cal G$ 的motif集合，本文中只关注一种特殊的motif：clique。</p>
+<p>给定一个顶点$v_c$，定义$M(v_c)$为图中包含$v_c$顶点的motif集合，$M(v_c)$集合的规模远小于$\cal V$。</p>
+<p>定义条件概率$p_{true}(m|v_c)$为包含$v_c$顶点的motif集合在全体motif集合$\cal M$中的偏向分布。</p>
+<p>因此，$M(v_c)$可以视为根据$p_{true}(m|v_c)$采样到的的motif。给定一张图$\cal G$，我们的目标是学习得到两个模型：</p>
+<p>（1）Generator $G(s|v_c;\theta_G)$：通过近似$p_{true}(m|v_c)$，生成（或选择）包含$v_c$的集合，使该集合与现实的motif最相似。</p>
+<p>（2）Discriminator $D(s,\theta_D)$：目的是输出顶点集合是真实motif（即来自$\cal M$）的概率。</p>
+<p>​        生成器$G$和判别器$D$在minmax中相互博弈，生成器$G$会尽力近似$p_{true}(m|v_c)$，生成包含$v_c$的最接近真实motif的顶点集。判别器 $D$会尽力区分真实motif的$p_{true}(m|v_c)$和Generator $G$生成的motif之间的区别。正式地，$G$和$D$在minmax游戏中成为博弈的两个对手，公式如下：</p>
 <script type="math/tex; mode=display">
-S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
-<h4 id="PGE详细步骤"><a href="#PGE详细步骤" class="headerlink" title="PGE详细步骤"></a>PGE详细步骤</h4><ol>
-<li><p>基于顶点属性聚类</p>
-<p>使用K-means或者DB-SCAN等聚类算法，根据顶点的属性进行聚类，生成 k 个聚类中心，</p>
-<p>C = { $C_1$ ,$C_1$,…,$C_k$ }</p>
-</li>
-<li><p>偏向邻域采样</p>
-<p>基于第一步的聚类结果进行一个有偏向的邻域采样：</p>
-<ul>
-<li>如果邻域节点$v’$和$v$属于同一个类，就分配一个偏向$b_s$给$v’$，表示这两个节点是相似的；否则就分配一个偏向$b_d$给$v’$，表示这两个节点不相似</li>
-<li>我们归一化对$N_v$的偏差，然后根据归一化的偏差对$N_v$进行采样，以获得固定大小（25）的采样邻域$N_v^s$</li>
+\mathop{min}\limits_{\theta _G}\mathop{max}\limits_{\theta _D}V(G,D)=\sum_{c=1}^{V}\left(\Bbb E_{m\sim p_{true}(\cdot|v_c)}\left[logD(m;\theta_D) \right]+ \Bbb E_{s\sim G(s|v_c;\theta_G) }\left[log\left(1-D(s;\theta_D)\right) \right]\right)\tag{1}</script><ul>
+<li>对于$\theta_D$，判别器希望自身能够分辨准确，对真实的样本$m\sim p_{true}(\cdot|v_c)$，让其概率值大，即最大$log(D(m;\theta_D))$；对于生成的样本$s\sim G(\cdot|v_c;\theta_G)$，让其概率值最小，即最大$log(1-D(s;\theta_D))$</li>
+<li>对于$\theta_G$，生成器希望自身生成的样本能够骗过判别器，使其无法分辨出生成的样本，因此要让生成样本的概率最大，即最小$log(1-D(s;\theta_D))$</li>
 </ul>
-</li>
-<li><p>邻域聚合（类似GraphSAGE中的Mean Aggregator）</p>
-<p>基于第二步获得的$N_v^s$，我们通过乘以神经网络训练的权重矩阵来汇总其属性信息以获得$z_v$。</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615091351473.png" alt="image-20200615091351473" style="zoom:50%;" /></p>
-<p>$P_v$是节点v的元素属性向量，A()表示的向量连接操作，$W^K$是参数矩阵</p>
-</li>
-<li><p>考虑边属性的邻域聚合</p>
-<p>对采样的图 G 考虑边的方向和边的属性，使用和节点属性处理相同的策略。如果边是有向边，则分别考虑in-edges和out-edges。<br>将边分成$k^e$个cluster，$C^e=C_1^e,C_2^e,…C_{k^e}^e$，然后训练2✖️$k^e$个矩阵，{$W_1^1$,$W_2^1$,…$W_{k^e}^1$}和，最后根据下{$W_1^2$,$W_2^2$,…$W_{k^e}^2$}式计算$Z_u$。</p>
-</li>
-</ol>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200615092252754.png" alt="image-20200615092252754" style="zoom:35%;" /></p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200728202224548.png" alt="image-20200728202224548" style="zoom:50%;" /></p>
-<hr>
+<p>基于公式（1），可以通过交替地最大化（$D$）最小化（$G$）值函数$V(G,D)$来学习最优的$G$和$D$。CommunityGAN的框架如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200802102116278.png" alt="image-20200802102116278" style="zoom:50%;" /></p>
+<p>​        判别器 $D$ 通过$p_{true}(m|v_c)$中的正样本和$G(\cdot|v_c;\theta_G)$中的负样本来进行训练，并在$D$的指导下使用策略梯度技术更新生成器 $G$ 。$G$和$D$之间的竞争推动了二者的性能，直到$G$和真实的motif难以区分。</p>
+<p>​        生成器和判别器的博弈就好比是造假团伙与银行之间的博弈，造假团伙希望造出更像的真钞的假钞，而银行则要鉴别出真钞和假钞，在这个博弈的过程中，造假团伙提升了自己造假的能力，银行提升了鉴别的能力。</p>
+<h3 id="（1）-G-和-D-简单的实现"><a href="#（1）-G-和-D-简单的实现" class="headerlink" title="（1）$G$和$D$简单的实现"></a>（1）$G$和$D$简单的实现</h3><p>​        判别器的简单实现基于sigmoid函数，生成器的简单实现基于softmax函数。</p>
+<p>​        对于判别器$D$，可以定义为输入顶点集合中，每两个顶点的内积做非线性变换后的乘积：</p>
+<script type="math/tex; mode=display">
+D(s)=\prod_{(u,v)\in s,u\neq v}\sigma(d_u^Td_v)\tag{4}</script><p>式中：$d_u,d_v\in\Bbb R^k$是判别器中顶点$u$和$v$的k维表示向量，$\theta_D$是判别器对于顶点所生成的空间。</p>
+<p>​        对于生成器$G$，为了生成包含$v_c$的顶点集合，我们可以把$(v_{s_1},v_{s_2},…,v_{s_m})$这一顶点序列作为集合，其中$v_{s_1}=v_c$。因此，生成器$G$可以定义为：</p>
+<script type="math/tex; mode=display">
+G(s|v_c)=G_v(v_{s_2}|v_{s_1})G_v(v_{s_3}|v_{s_1},v_{s_2})...G_v(v_{s_m}|v_{s_1},...,v_{s_{m-1}})\tag{5}</script><p>​        值得注意的是，在公式（5）中，$v_{s_m}$的生成是基于$v_{s_1}$到$v_{s_{m-1}}$，而不是仅基于$v_{s_{m-1}}$。因为如果我们仅基于$v_{s_{m-1}}$生成$v_{s_m}$，很有可能就会导致$v_{s_m}$和其他顶点会属于不同的社区。生成器$G_v$定义如下：</p>
+<script type="math/tex; mode=display">
+G_v(v_{s_m}|v_{s_1},...,v_{s_{m-1}})=\frac{exp(\sum_{i=1}^{m-1}\rm g_{\it v_{s_m}}^{\sf T}g_{\it v_{s_i}})}{\sum_{v\notin (v_{s_1},...,v_{s_{m-1}})}exp(\sum_{i=1}^{m-1}\rm g_\it v^{\sf T}g_{\it v_{s_i}})}\tag{6}</script><p>式中：$\rm g_\it v\in\Bbb R^k$是生成器中顶点$v$的k维表示向量，$\theta_G$是生成器对于顶点所生成的空间。</p>
+<h3 id="（2）基于Graph-AGM的初步实现"><a href="#（2）基于Graph-AGM的初步实现" class="headerlink" title="（2）基于Graph AGM的初步实现"></a>（2）基于Graph AGM的初步实现</h3><p>​        Sigmoid和Softmax函数为判别器和生成器给定了简洁直观的定义，但在社区发现任务中存在三个限制：</p>
+<p>（1）在根据公式（4）和（6）学习到顶点的表示向量后，为了进行社区发现，我们仍然需要采用一些聚类算法，而大多数的聚类算法无法处理社区重叠的问题。</p>
+<p>（2）公式（6）中的softmax的计算涉及图中的所有顶点，计算量大，效率低下。 </p>
+<p>（3）没有充分利用图的拓扑结构信息。</p>
+<p>​        为了解决这些问题，在CommunityGAN中，我们提出了一种新颖的判别器，生成器实现方式：Graph AGM（Affiliation Graph Model，隶属关系图模型）。</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200802144920051.png" alt="image-20200802144920051" style="zoom:50%;" /></p>
+<p>​        在AGM中，每个顶点可以隶属于0个，1个，或者多个社区。如果顶点$u$隶属于社区$c$，则该隶属度不为负。</p>
+<p>​        对于任意社区$c\in C$，其成员顶点$u$和$v$连接的概率为：$1-exp(-F_{uc}\cdot F_{vc})$。此外，每个社区$c$生成边是独立的。如果顶点$u$和$v$通过多个社区连接多次，则连接概率为：$1-exp(-\sum_cF_{uc}\cdot F_{vc})$。因此，顶点$u$和$v$（通过任何可能的社区）连接的概率为$p(u,v)=1-exp(-F_u^{\sf T}\cdot F_v)$，其中$F_u$和$F_v$是顶点$u$和$v$的非负$C$维隶属度向量。</p>
+<p>​        接下来，我们拓展 edge generation到motif generation。</p>
+<p>​        对于$m$个顶点$v_1$到$v_m$，定义通过社区$c$成为clique的概率为：$p_c(v_1,v_2,…,v_m)=1-exp(-\prod_{i=1}^mF_{v_ic})$，同时可以通过下式计算这$m$个顶点通过任意社区成为clique的概率：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p(v_1,v_2,...,v_m)=&1-\prod_c(1-p_c(v_1,v_2,...,v_m))\\
+=&1-exp(-\odot(F_{v_1},F_{v_2},...,F_{v_m}))
+\end{align}
+\tag{7}</script><p>式中，$\odot(F_{v_1},F_{v_2},…,F_{v_m})=\sum_{c=1}^C\prod_{i=1}^mF_{v_ic}$</p>
+<p>​        判别器可以如下定义：</p>
+<script type="math/tex; mode=display">
+D(s)=1-exp(-\odot\big(d_{v_1},d_{v_2},...,d_{v_m})\big)</script><p>​        式中，$d_v\in \Bbb R^C$表示判别器中顶点$v$的表示向量，$\theta_D$表示判别器对顶点所生成的向量空间</p>
+<p>接下来，生成器$G_v$可以进一步定义为：</p>
+<script type="math/tex; mode=display">
+G_v(v_{s_m}|v_{s_1},...,v_{s_{m-1}})=\frac{1-exp(-\odot(\rm g_{\it v_{s_1}},...,g_{\it v_{s_m}}))}{\sum_{v\notin v_{s_1},...,v_{s_{m-1}}}1-\rm exp\big(-\odot(\rm g_{\it v_{s_1}},...,g_{\it v_{s_{m-1}}},g_\it v\rm)\big)}</script><p>式中：$\rm g_\it v\in \Bbb R^C$是生成器$G_v$中顶点$v$的非负$C$维表示向量，$\theta_G$是生成器对于顶点所生成的空间。在此设置下，学习到的向量$\rm g_\cal v$可以表示顶点$v$和社区之间的隶属度，这意味着我们无需其他聚类算法就可以找到社区，因此就克服了第一个限制。</p>
+<h2 id="（3）基于Graph-AGM的改进实现"><a href="#（3）基于Graph-AGM的改进实现" class="headerlink" title="（3）基于Graph AGM的改进实现"></a>（3）基于Graph AGM的改进实现</h2><p>​        为了进一步客服其他两个限制，受到《GraphGAN: Graph Representation Learning With Generative Adversarial Nets》的启发，我们如下设置了AGM：</p>
+<p>​        为了计算$G_v(v_{s_m}|v_{s_1},…,v_{s_{m-1}})$，我们首先假设存在虚拟顶点$v_v$与$v_{s_1}$到$v_{s_{m-1}}$的<strong>全体邻域</strong>中的顶点相连，即$N(v_v)=N(v_{s_1})\bigcup…\bigcup N(v_{s_{m-1}})$，$N(v)$表示顶点$v$的邻域节点。此外，虚拟顶点$v_v$的表示向量$\rm g_{\it v_v}=g_{\it v_{s_1}}\circ\cdot\cdot\cdot\circ g_{\it v_{s_{m-1}}}$，即$v_v$的表示向量是$v_{s_1}$到$v_{s_{m-1}}$表示向量的逐项乘积。为了简单起见，我们用$G_v(s_m|v_v)$表示$G_v(v_{s_m}|v_{s_1},…v_{s_{m-1}})$。然后我们根据计算好的概率分布，从虚拟顶点$v_v$开始有偏向的随机游走。在随机游走过程中，如果当前的访问顶点是$v$，并且生成器$G$决定访问$v$的先前顶点，则选择$v$作为生成节点，并停止随机游走，下图说明了生成大小为3的顶点子集的过程：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200803092010255.png" alt="image-20200803092010255"></p>
+<p>​        此外，在随机游走过程中，我们希望游走路径总是与根顶点$v_v$相关，以此来最大化生成顶点集合成为motif的概率。因此，对于给定一个顶点$v_c$和它的一个邻域顶点$v_i\in N(v_c)$，我们定义给定$v_c$的$v_i$的相关概率为：</p>
+<script type="math/tex; mode=display">
+\ p_{v_v}(v_i|v_c)=\frac{1-exp(-\odot(\rm g_\it {v_i},\rm g_\it {v_c},\rm g_\it {v_v}\rm))}{\sum_{v_j\in N(v_c)}1-exp(-\odot(\rm g_\it {v_j},\rm g_\it {v_c},\rm g_\it {v_v}\rm))}\tag{10}</script><p>​        如果我们定义随机游走的路径为$P_r=(v_{r_1},v_{r_2},…,v_{r_n})$，则选择这条路径的概率为</p>
+<p>$p_{v_v}(v_{r_{n-1}}|v_{r_n})\cdot \prod_{i=1}^{n-1}p_{v_v}(v_{r_{i+1}}|v_{r_i})$</p>
+<p>在梯度策略中，我们通过选择路径，目标是从$D$中获得最大回报。因此，尽管从$v_{r_1}$到$v_{r_n}$有多条路径，如果我们已经选择了路径$P_r$，我们会优化该路径上的策略梯度，而忽略其他路径，换句话说，如果我们选择了路径$P_r$，我们定义$G_v(v_{s_m}|v_v)$，如下：</p>
+<script type="math/tex; mode=display">
+G_v(v_{s_m}|v_v)=p_{v_v}(v_{r_{n-1}}|v_{r_n})\cdot \prod_{i=1}^{n-1}p_{v_v}(v_{r_{i+1}}|v_{r_i})</script><p>​        最后，CommunityGAN的算法流程如下：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200803093558119.png" alt="image-20200803093558119" style="zoom:50%;" /></p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p><strong>模型初始化：</strong>我们有两种方法来进行模型初始化（1）我们利用AGM模型去学习获得顶点$v_i$对应的隶属度向量$F_i$，然后直接设置$g_{v_i}=d_{v_i}=F_i$（2）使用局部最小邻域，我们可以将每个顶点$v_i$及其邻域$N(v_i)$看做一个社区（$C(v_i)$）？？？？？</p>
+<p><strong>确定社区成员：</strong>在学习参数$\theta_G$和$\theta_D$后，我们需要去决定每个顶点的社区成员身份，我们通过设置一个阈值。如果两个顶点属于同一个社区，则它们之间通过社区连接的概率应该大于background edge probability（$\epsilon=\frac{2E}{V(V-1)}$），于是我们设置这个阈值$\delta=\sqrt{-log(1-\epsilon)}$，如果$g_{v_{ic}}\geq \delta$或者$d_{v_{ic}}\geq \delta$，则认为顶点$v_i$属于社区$c$。</p>
 
             </div>
             <hr/>
@@ -411,7 +450,7 @@ S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/06/03/PGE/">https://dymzcc.github.io/2020/06/03/PGE/</a>
+                    <a href="https://dymzcc.github.io/2020/08/18/CommunityGAN-Community-Detection-with-GenerativeAdversarial-Nets/">https://dymzcc.github.io/2020/08/18/CommunityGAN-Community-Detection-with-GenerativeAdversarial-Nets/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -448,7 +487,11 @@ S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Embedding/">
+                                    <span class="chip bg-color">Embedding</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -614,9 +657,60 @@ S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/08/18/CommunityGAN-Community-Detection-with-GenerativeAdversarial-Nets/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="CommunityGAN: Community Detection with GenerativeAdversarial Nets">
+                        
+                        <span class="card-title">CommunityGAN: Community Detection with GenerativeAdversarial Nets</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            CommunityGAN: Community Detection with Generative Adversarial NetsIntroduction​        社区发现旨在找出网络中具有相似属性或者功能的节点群，如查找社交网络
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
+                                    论文阅读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Embedding/">
+                        <span class="chip bg-color">Embedding</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/08/13/hello-world/">
                     <div class="card-image">
@@ -634,45 +728,8 @@ S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-13
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            dede
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/06/03/PGE/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
-                        
-                        <span class="card-title"></span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            A Representation Learning Framework for Property Graphs摘要图嵌入具有重大的研究价值，目前的图嵌入方法要么只注重图的拓扑结构，要么只注重节点属性，边属性。因此，本文提出PGE，将节点属性
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-13
                             </span>
                         <span class="publish-author">
                             
@@ -682,7 +739,6 @@ S_G(v_i,v_j)=l(S_p(v_i,v_j),S_\Gamma(v_i,v_j))</script><hr>
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -818,6 +874,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 
@@ -934,10 +997,6 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
 </div>
     </div>
 </footer>
@@ -1017,22 +1076,6 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 
