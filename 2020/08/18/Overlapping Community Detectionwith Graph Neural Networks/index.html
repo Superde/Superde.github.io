@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GraphGAN: Graph Representation Learning with Generative Adversarial Nets, 三环三星">
+    <meta name="keywords" content="Overlapping Community Detectionwith Graph Neural Networks, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>GraphGAN: Graph Representation Learning with Generative Adversarial Nets | 三环三星</title>
+    <title>Overlapping Community Detectionwith Graph Neural Networks | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GraphGAN: Graph Representation Learning with Generative Adversarial Nets</h1>
+                    <h1 class="description center-align post-title">Overlapping Community Detectionwith Graph Neural Networks</h1>
                 </div>
             </div>
         </div>
@@ -361,50 +361,36 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets"><a href="#GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets" class="headerlink" title="GraphGAN: Graph Representation Learning with Generative Adversarial Nets"></a>GraphGAN: Graph Representation Learning with Generative Adversarial Nets</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        大多数的图嵌入算法可以分为两类：生成式的图嵌入算法，判别式的图嵌入算法</p>
-<p><strong>生成式的图嵌入算法：</strong>生成式模型假设对每个节点$v_c$，都存在着一种真实的链接分布$p_{true}(v|v_c)$，这表明了节点$v_c$在整个网络中的连接偏向（可以理解为，删除图中所有边，现在节点$v_c$要选择与一个节点$v$相连，图中剩余的节点都有一定的概率与$v_c$相连，这个概率分布即为$p_{true}(v|v_c)$）。因此，图中的边可以看做是根据$p_{true}(v|v_c)$采样所生成的样本（即根据概率分布采样），并且这些生成模型通过最大化图中边存在的可能性来学习节点嵌入。</p>
-<p><strong>判别式的图嵌入算法：</strong>旨在学习得到一个可以直接预测边是否存在的分类器。典型地，判别式模型把两个节点$v_i$和$v_j$视为特征，并预测两个顶点间存在边的概率，即$p_(edge|(v_i,v_j))$。</p>
-<p>​        尽管生成式模型和判别式模型是两类图表示学习方法，但是两者可以看做是同个硬币的两面，相互对抗，相互联系。受到GAN的启发，本文提出了GraphGAN，一种结合了生成模型和判别模型的新颖的框架。在GraphGAN中，生成模型和判别模型在minmax中进行博弈竞争，生成模型旨在生成更难以区分的”假“节点，判别模型旨在更准确地区分“真假”节点。</p>
-<p>（1）生成模型$G(v|v_c)$：拟合真实的链接分布$p_{true}(v|v_c)$，生成$v_c$最有可能连接的顶点。</p>
-<p>（2）判别模型$D(v,v_c)$：预测$v$和$v_c$之间存在边的概率。</p>
-<p>​        在实验过程中，我们发现传统的softmax函数并不适用于生成模型，理由如下：（1）对于给定顶点，softmax对图中的其他顶点一视同仁，而缺少对图结构信息和近邻信息的考虑。（2）softmax函数涉及图中所有顶点，计算量非常大。</p>
-<p>​        为了克服这个限制，我们在GraphGAN中提出了一种新的生成器的实现方式：Graph Softmax。Graph Softmax对图中的链接分布做了新的定义，我们证明了Graph Softmax满足规范化（Normalization），图结构意识（Graph Structure Awareness），计算效率（Computational Efficiency）的理想特性。因此，我们提出了一种基于随机游走的在线生成策略的生成器，它与Graph Softmax定义一致，可以大大降低计算复杂度。</p>
-<h2 id="Graph-Generative-Adversarial-Nets"><a href="#Graph-Generative-Adversarial-Nets" class="headerlink" title="Graph Generative Adversarial Nets"></a>Graph Generative Adversarial Nets</h2><h3 id="GraphGAN-Framework"><a href="#GraphGAN-Framework" class="headerlink" title="GraphGAN Framework"></a>GraphGAN Framework</h3><p><strong>符号定义：</strong></p>
-<p>$\cal G=(V,E)$表示一张图，其中$\cal V=\{v_1,…,v_V\}$表示节点集合，$\cal E=\{e_{ij}\}_{i,j=1}^V$表示边集合。</p>
-<p>对于一个给定的节点$v_c$，定义$N(v_c)$为与$v_c$直接相连的节点（即一阶邻域）。</p>
-<p>定义节点$v_c$的潜在真实链接分布为$p_{true}(v|v_c)$，这反映了节点$v_c$倾向于哪些$\cal V$中顶点相连。$\cal N(v_c)$可以看做是根据$p_{true}(v|v_c)$采样得到。</p>
-<p><strong>生成模型</strong>$G(v|v_c;\theta_G)$：拟合真实的链接分布$p_{true}(v|v_c)$，生成$v_c$最有可能连接的节点。</p>
-<p><strong>判别模型</strong>$D(v,v_c;\theta_D)$：区分顶点对$v,v_c$之间的连接性，输出$v$和$v_c$之间存在边的概率。</p>
-<p>​        生成器$G$会拟合真实的链接分布$p_{true}(v|v_c)$，尽力去生成与节点$v_c$实际连接的邻域节点最相似的生成节点，尽力让判别器$D$认为生成的节点就是$v_c$实际的邻域节点；而判别模型$D$则为尽力去分辨这些节点是真实的$v_c$的邻域节点，还是由对手生成模型$G$生成的节点。因此，$G$和$D$实际即在minmax中竞争博弈：</p>
+                <h1 id="Overlapping-Community-Detectionwith-Graph-Neural-Networks"><a href="#Overlapping-Community-Detectionwith-Graph-Neural-Networks" class="headerlink" title="Overlapping Community Detectionwith Graph Neural Networks"></a>Overlapping Community Detectionwith Graph Neural Networks</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        图提供了真实复杂世界系统的一种自然的表达方式。社区发现方法是理解这些系统的结构和行为的重要工具。社区发现问题引起了研究社区的广泛关注，并提出了许多模型和算法。</p>
+<p>​        近年来，图上的深度学习已经取得了令人瞩目的成效，并在图相关任务（如链接预测，节点分类）中取得了空前的成果，但无监督社区发现任务却少有人关注。目前已经提出了几种方法，但是他们都有一个共同的缺点：只关注不重叠社区的特殊情况。然而，现实中的社区大部分都是重叠的，处理重叠的社区发现问题是现有的深度学习方法无法满足的。在本文中，我们解决了这一研究空白，并提出了一种能够检测重叠社区的深度学习模型。</p>
+<h2 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h2><p>$G$表示无向无权重图，$A\in\{0,1\}^{N\times N}$表示邻接矩阵</p>
+<p>$V=\{1,…,N\}$表示点集，$N$为节点数，$E=\{(u,v)\in V\times V:A_{uv}=1\}$表示边集，$M$为边数</p>
+<p>每个节点对应一个$D$维属性向量，所有节点可以用属性矩阵$X\in \Bbb R^{N\times D}$表示</p>
+<p>重叠社区发现的目标是将节点分配到$C$个社区，可以通过节点隶属度矩阵$F\in \Bbb R^{N\times C}_{\geq 0}$来分配，其中$F_{uc}$表示节点$u$对社区$c$的隶属度。</p>
+<p>“社区”没有一个统一的定义，本文采用这样的定义：社区是一组节点，与图上的其他节点相比，社区内节点之间连接形成边的概率更大。这样，可以根据概率推断框架来处理社区发现问题。一旦为图建立了基于社区的生成模型$p(G|F)$，社区发现问题就可以归结为给定图$G$，推断出隶属关系矩阵$F$。</p>
+<h2 id="NOCD模型"><a href="#NOCD模型" class="headerlink" title="NOCD模型"></a>NOCD模型</h2><h3 id="1-BP模型"><a href="#1-BP模型" class="headerlink" title="1. BP模型"></a>1. BP模型</h3><p>​        Bernoulli-Poisson（BP）是一个图生成式模型，能够处理重叠的社区。根据BP模型，图的生成如下所示：给定隶属关系矩阵$F\in\Bbb R^{N\times C}_{\geq0}$，邻接矩阵中$A_{uv}$按下式进行采样：</p>
 <script type="math/tex; mode=display">
-\mathop{min}\limits_{\theta _G}\mathop{max}\limits_{\theta _D}V(G,D)=\sum_{c=1}^{V}\left(\Bbb E_{v\sim p_{true}(\cdot|v_c)}\left[logD(v,v_c;\theta_D) \right]+ \Bbb E_{v\sim G(\cdot|v_c;\theta_G) }\left[log\left(1-D(v,v_c;\theta_D)\right) \right]\right)\tag{1}</script><p>​        GraphGAN框架如下图所示：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200806092820648.png" alt="image-20200806092820648" style="zoom:70%;" /></p>
-<p>​        在每一次迭代中，判别器$D$用来自真实分布$p_{true}(\cdot|v_c)$的正样本（绿色顶点）和来自生成器$D(\cdot,v_c;\theta_D)$生成的负样本（蓝色样本）训练，生成器$G$则在判别器$D$的反馈指导下，按照梯度政策进行更新。生成器$G$和判别器$D$之间的竞争博弈，会提高各自的性能，直到判别器$D$无法区分真实节点和生成节点。</p>
-<h3 id="（1）-G-和-D-简单的实现"><a href="#（1）-G-和-D-简单的实现" class="headerlink" title="（1）$G$和$D$简单的实现"></a>（1）$G$和$D$简单的实现</h3><p>​        对于给定的来自真实分布的正样本和来自生成生成的负样本，判别器$D$旨在最大化将正负样本对应正确标签的概率，这可以通过随机梯度上升来解决。判别器$D$定义如下：</p>
+A_{uv}\sim Bernoulli(1-exp(-F_uF_v^T))
+\tag{1}</script><p>式中$F_u$是节点$u$对应的社区隶属度向量，上式定义了两个顶点$u$和$v$之间存在边的概率，可以理解为图中真实存在的边是根据这些两两之间相连的概率采样得到的。<strong>直观地，节点$u$和$v$之间共享的社区越多，它们之间存在边的概率越大</strong>。该模型有许多理想的属性：（1）可以产生各种社区拓扑结构，生成密集的重叠社区（2）计算高效。</p>
+<h3 id="2-模型定义"><a href="#2-模型定义" class="headerlink" title="2. 模型定义"></a>2. 模型定义</h3><p>​        本文中没有把$F$作为自由变量去优化，即没有像node2vec，LINE那样直接优化隶属度向量$F_u$的向量表达。而是通过GNN来生成隶属度矩阵$F$，通过训练参数矩阵$\theta$来优化隶属度向量$F_u$的向量表达：</p>
 <script type="math/tex; mode=display">
-D(v,v_c)=\sigma(d_v^Td_{v_c})=\frac{1}{1+exp(-d_v^Td_{v_c})}</script><p>式中：$d_v,d_{v_c}\in \Bbb R^k$表示节点$v$和$v_c$在判别器$D$中的k维向量表示，$\theta_D$可以看做是所有节点表示向量的向量空间（参数空间）。</p>
-<p>​        一种生成器的直接定义是使用softmax函数，如下：</p>
+F:=GNN_{\theta}(A,X)
+\tag{2}</script><p>式中：A为邻接矩阵，X为特征矩阵</p>
+<p>​        在本文的实验中，GNN为2层的GCN，GCN定义如下：</p>
 <script type="math/tex; mode=display">
-G(v|v_c)=\frac{exp(\rm g_\it v^\sf T\rm g_{\it v_c})}{\sum_{v\neq v_c}exp(\rm g_\it v^\sf T\rm g_{\it v_c})}
-\tag{5}</script><p>式中，$\rm g_\it v,\rm g_{\it v_c}\in \Bbb R^k$表示生成器中$v$，$v_c$的k维表示向量，$\theta_G$可以看做是所有节点表示向量的向量空间</p>
-<p>（参数空间）。在每次迭代中，为了更新$\theta_G$，首先根据公式（5）计算得到预估的链接分布$G(v|v_c)$，然后根据这个概率值进行随机采样可以得到样本集合$(v,v_c)$，然后用随机梯度下降更新$\theta_G$。</p>
-<p>​        softmax为$G$中的链接分布提供了简洁直观的定义，但是它在图表示学习中存在中两个限制：（1）涉及图中所有节点，计算非常复杂（2）没有利用图的拓扑结构信息。</p>
-<h3 id="（2）基于Graph-Softmax-的实现"><a href="#（2）基于Graph-Softmax-的实现" class="headerlink" title="（2）基于Graph Softmax 的实现"></a>（2）基于Graph Softmax 的实现</h3><p>​        为了解决上述问题，我们提出了Graph Softmax方法，该方法满足：<br>（1）Normalized：满足有效的概率分布$\sum_{v\neq v_c}G(v|v_c;\theta_G)=1$</p>
-<p>（2） Graph-structu-aware：利用图的结构信息。直观的意思就是，对于两个节点，它们最短距离短小，连接概率越大。</p>
-<p>（3）Computationally efficient：计算$G(v|v_c;\theta_G)$时，无需计算全部节点，减少计算量。</p>
-<p>​        首先从$v_c$开始进行BFS，生成根结点为$v_c$BFS树$T_c$。给定$T_c$，我们定义$N_c(v)$为顶点$v$在树$T_c$的一阶邻域，包括父母节点和子节点。对于给定的一个节点$v$和其邻域节点$v_i\in N_c(v)$，定义条件概率如下：</p>
+F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
+\tag{3}</script><p>式中$\hat A=\tilde D^{-1/2}\tilde A\tilde D^{-1/2}$是归一化的邻接矩阵，$\tilde A=A+I_N$是邻接矩阵$A$加上一个单位矩阵，$\tilde D$表示$\tilde A$的度矩阵。</p>
+<p>​        输入特征矩阵$X$和邻接矩阵$A$，然后经过两层GCN，得到隶属度矩阵$F$，如果节点的特征属性$X$不可用，可以把$A$作为节点特征进行输入。为什么进行这个操作？后面作者也说了，实验结果说明了一切。</p>
+<p>​        定义了隶属度矩阵$F$的表达后，接下来要定义损失函数，来优化GCN的参数矩阵，最终优化$F$的向量表达。首先定义BP模型的负对数似然（negative log-likelihood）：</p>
 <script type="math/tex; mode=display">
-p_c(v_i|v)=\frac{exp(\rm g_{\it v_i}^\sf T\rm g_\it v)}{\sum_{v_j\in N_c(v)}exp(\rm g_{\it v_j}^\sf T\rm g_\it v)}\tag{6}</script><p>​        对于计算$G(v|v_c;\theta_G)$，图中的每个节点$v$都可以看做是从根节点$v_c$出发的一条$T_c$树上的路径，该路径定义为：$p_{v_c\to v}=(v_{r_0},v_{r_1},…,v_{r_m})$，其中$v_{r_0}=v_c$，$v_{r_m}=v$。在Graph Softmax中$G(v|v_c;\theta_G)$可以定义为：</p>
+-logp(A|F)=-\sum_{(u,v)\in E}log\big(1-exp(-F_uF_v^T)\big)+\sum_{(u,v)\notin E}F_uF_v^T
+\tag{4}</script><p>​        这个可以理解为，确定了每个节点的隶属度向量，即确定了每个节点对各个社区的隶属概率后，对图中所有节点两两相连的概率进行计算，即确定了$F$后确定邻接矩阵$A$的条件概率：$-logp(A|F)$。由于真实图是比较稀疏的，这会导致第二项 $\sum_{(u,v)\notin E}F_uF_v^T$会对损失的影响更大，因此使用平衡分类的技术来定义损失函数：</p>
 <script type="math/tex; mode=display">
-G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})\Big)\cdot p_c(v_{r_{m-1}}|v_{r_m})
-\tag{7}</script><p>式中：$p_c(\cdot|\cdot)$即为公式（6）中定义的条件概率。</p>
-<p>​        一种简单的生成节点的方法就是根据所有节点$G(v|v_c;\theta_G)$进行有权重偏向的随机采样。我们提出了另一种计算更高效的生成方法，我们从根顶点$v_c$出发依据（6）中计算的概率进行有偏向的随机游走，如果当前游走到的节点 $v$的下一步是要游走回父母节点，则 $v$即被选择为采样的节点，图示如下：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200806173118934.png" alt="image-20200806173118934"></p>
-<p>生成器算法流程如下所示：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200806174143751.png" alt="image-20200806174143751" style="zoom:50%;" /></p>
-<p>GraphGAN算法流程如下所示：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/image-20200806174216985.png" alt="image-20200806174216985" style="zoom:50%;" /></p>
-
+\cal L(\it F)=-\Bbb E_{(u,v)\sim P_E}\rm [log\big(1-exp(-F_uF_\it v^T\rm)\big)]+\Bbb E_{(u,\it v\rm)\sim P_N}[F_uF_\it v^T\rm]
+\tag{5}</script><p>实验没有对隶属矩阵$F$进行直接优化，而是通过确定最优的参数$\theta^{\star}$来最小化负对数似然：</p>
+<script type="math/tex; mode=display">
+\theta^{\star}=\mathop{argmin}\limits_{\theta}\cal L\big(\rm GNN_{\theta}(A,X)\big)
+\tag{6}</script>
             </div>
             <hr/>
 
@@ -429,7 +415,7 @@ G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/08/18/GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets/">https://dymzcc.github.io/2020/08/18/GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets/</a>
+                    <a href="https://dymzcc.github.io/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/">https://dymzcc.github.io/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -636,9 +622,10 @@ G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/">
                     <div class="card-image">
@@ -656,9 +643,9 @@ G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -671,6 +658,7 @@ G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -689,19 +677,19 @@ G(v|v_c;\theta_G)\overset{\Delta}{=}\Big(\prod_{j=1}^{m}p_c(v_{r_j}|v_{r_{j-1}})
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/18/CommunityGAN-Community-Detection-with-Generative-Adversarial-Nets/">
+                <a href="/2020/08/18/GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="CommunityGAN: Community Detection with Generative Adversarial Nets">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="GraphGAN: Graph Representation Learning with Generative Adversarial Nets">
                         
-                        <span class="card-title">CommunityGAN: Community Detection with Generative Adversarial Nets</span>
+                        <span class="card-title">GraphGAN: Graph Representation Learning with Generative Adversarial Nets</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            CommunityGAN: Community Detection with Generative Adversarial NetsIntroduction​        社区发现旨在找出网络中具有相似属性或者功能的节点群，如查找社交网络
+                            GraphGAN: Graph Representation Learning with Generative Adversarial NetsIntroduction​        大多数的图嵌入算法可以分为两类：生成式的图嵌入算法，判
                         
                     </div>
                     <div class="publish-info">
