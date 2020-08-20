@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 三环三星">
+    <meta name="keywords" content="Graph Attention Networks, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 三环三星</title>
+    <title>Graph Attention Networks | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">Graph Attention Networks</h1>
                 </div>
             </div>
         </div>
@@ -318,12 +318,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Embedding/">
+                                <span class="chip bg-color">Embedding</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
+                                论文阅读
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -332,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-13
+                    2020-08-20
                 </div>
                 
 
@@ -348,15 +361,41 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h1 id="Graph-Attention-Networks"><a href="#Graph-Attention-Networks" class="headerlink" title="Graph Attention Networks"></a>Graph Attention Networks</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        人类的注意力机制（Attention Mechanism）是从直觉中得到的，它是人类利用有限的注意力资源从大量的信息中快速筛选出高价值信息的手段。</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/人类的注意力机制.png" alt="人类的注意力机制" style="zoom:50%;" /></p>
+<p>​        借鉴人类的注意力机制原理，将其运用到NLP，CV中，都已经取得了非常好的表现。 注意机制的好处之一是，它们允许处理大小可变的输入，着重于决策中输入最相关的部分。 当使用注意力机制来计算单个序列的表示时，通常将其称为自我注意力或内部注意力。 </p>
+<p>注意力机制有趣的属性：</p>
+<p>（1）计算速度快，可以在不同节点上进行并行操作</p>
+<p>（2）通过对邻域节点指定权重，可以泛化应用到任意具有不同度的节点</p>
+<p>（3）是一种inductive的模型，可以泛化到没有参与训练的节点</p>
+<p>​        GAT是为图上的节点分类任务设计，思想很简单，GAT中目标节点的向量表示是受其他节点的影响的，因此通过注意力机制找出对目标节点影响更大的节点，让它们参与到目标节点的嵌入过程中去，使得向量表示更准确。</p>
+<p>​        就好比是给一个人A作评价，然后需要找一些人对A作评价，根据这些人对A的评价，最后给出最终评价。如果随机找人来作评价肯定是不合适的，比较科学合适的方法是，找出A的亲朋好友，让他们来作评价，他们和A的关系更亲密，他们的评价也会更有参考价值，使最终的评价更准确。</p>
+<h2 id="GAT-Architecture"><a href="#GAT-Architecture" class="headerlink" title="GAT Architecture"></a>GAT Architecture</h2><h3 id="Graph-Attention-Layer"><a href="#Graph-Attention-Layer" class="headerlink" title="Graph Attention Layer"></a>Graph Attention Layer</h3><p>​        该层的输入是一组节点的特征，h = {$\vec{h_1},\vec{h_2},…,\vec{h_N}$}，$\vec{h_N}\in R^F$，其中 N 是节点数，F 是节点的特征维数，该层会生成一组新的节点特征作为该层的输出，$h’={}${$\vec{h’_1},\vec{h’_2},…,\vec{h’_N}$}，$\vec{h’_N}\in R^{F’}$。</p>
+<p>​        第一步，通过共享权重矩阵$W\in R^{F’\times F}$对每个节点参数做线性变换，即对节点特征的增维，然后引入注意力机制，$a:R^{F’}\times R^{F’}\to R$，计算<strong>初步注意力系数</strong>：</p>
+<script type="math/tex; mode=display">
+e_{ij}=a(W\vec H_i,W\vec H_j)
+\tag{1}</script><p>$(,)$表示将两个向量进行拼接，$a$ 表示将拼接后的向量映射为一个实数。注意力系数表示了节点 $j$ 对节点 $i$ 的重要程度。得到初步注意力系数后，用Softmax进行归一化：</p>
+<script type="math/tex; mode=display">
+\alpha_{ij} = softmax_j(e_{ij})=\frac{exp(e_{ij})}{\sum_{k\in N_i}exp(e_{ik})}
+\tag{2}</script><p>式中：$N_i$表示节点 $i$ 的邻域节点。</p>
+<p>​        在本文的实验中，注意力机制$a$是由权重向量 $\vec a\in R^{2F’}$参数化单层前馈神经网络，并使用激活函数LeakyReLU（负输入斜率$\alpha=0.2$），完全展开后，<strong>最终注意力系数</strong>为：</p>
+<script type="math/tex; mode=display">
+\alpha_{ij}=\frac{exp(LeakyReLU(\vec a^T[W\vec h_i||W\vec h_j]))}{\sum_{k\in N_i}exp(LeakyReLU(\vec a^T[W\vec h_i||W\vec h_k]))}
+\tag{3}</script><p>其中，$\cdot^T$表示转置，||表示向量连接，过程如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/注意力系数.png" alt="注意力系数" style="zoom:40%;" /></p>
+<p>​        获得归一化的注意力系数后，把邻域节点的特征向量进行加权求和，最后将结果做一次非线性变换，以此作为每个节点最终的特征输出向量：</p>
+<script type="math/tex; mode=display">
+\vec {h'_i}=\sigma (\sum_{j\in N_i}\alpha_{ij}W\vec h_j)
+\tag{4}</script><h3 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h3><p>​        为了稳定自我注意力的学习过程，引入多头注意力机制。</p>
+<h4 id="Concat："><a href="#Concat：" class="headerlink" title="Concat："></a>Concat：</h4><p>​        由K个独立的注意力机制执行等式4的转换，然后将它们的特征连接起来，从而得到以下输出特征表示：</p>
+<script type="math/tex; mode=display">
+\vec{h'_i}=||_{k=1}^K(\sigma(\sum_{j\in N_i}\alpha_{ij}^kW^k\vec h_j))
+\tag{5}</script><p>​        其中，||为向量拼接操作，$\alpha_{ij}^k$是第$K$个注意力机制计算出的归一化注意力系数，$W^k$是相应的输入线性变化的权重矩阵。注意，在此设定下，最终返回的输出$h’$的维数为$KF’$。可以理解为多个卷积核的操作，每个注意力机制处理一部分的特征，最后将结果做一个拼接。</p>
+<h4 id="Average："><a href="#Average：" class="headerlink" title="Average："></a>Average：</h4><p>​        如果我们在网络的最终层上进行多头关注，则向量拼接是没有意义的，因此采用求平均，最后做非线性变化：</p>
+<script type="math/tex; mode=display">
+\vec {h'_i}=\sigma(\frac{1}{K}\sum_{k=1}^K\sum_{j\in N_i}\alpha_{ij}^kW^k\vec h_j)
+\tag{6}</script><p>下图说明了多头注意力机制的聚合过程：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/多头注意力机制.png" alt="多头注意力机制" style="zoom:40%;" /></p>
 
             </div>
             <hr/>
@@ -382,7 +421,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/08/13/hello-world/">https://dymzcc.github.io/2020/08/13/hello-world/</a>
+                    <a href="https://dymzcc.github.io/2020/08/20/Graph%20Attention%20Networks/">https://dymzcc.github.io/2020/08/20/Graph%20Attention%20Networks/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -419,7 +458,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Embedding/">
+                                    <span class="chip bg-color">Embedding</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -585,29 +628,80 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/08/18/CommunityGAN-Community-Detection-with-Generative-Adversarial-Nets/">
+                <a href="/2020/08/20/Graph%20Attention%20Networks/">
                     <div class="card-image">
                         
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="Graph Attention Networks">
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="CommunityGAN: Community Detection with Generative Adversarial Nets">
-                        
-                        <span class="card-title">CommunityGAN: Community Detection with Generative Adversarial Nets</span>
+                        <span class="card-title">Graph Attention Networks</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            CommunityGAN: Community Detection with Generative Adversarial NetsIntroduction​        社区发现旨在找出网络中具有相似属性或者功能的节点群，如查找社交网络
+                            Graph Attention NetworksIntroduction​        人类的注意力机制（Attention Mechanism）是从直觉中得到的，它是人类利用有限的注意力资源从大量的信息中快速筛选出高价值信息的手段。
+
+
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
+                                    论文阅读
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Embedding/">
+                        <span class="chip bg-color">Embedding</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/">
+                    <div class="card-image">
+                        
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0256.JPG" class="responsive-img" alt="Overlapping Community Detectionwith Graph Neural Networks">
+                        
+                        <span class="card-title">Overlapping Community Detectionwith Graph Neural Networks</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Overlapping Community Detectionwith Graph Neural NetworksIntroduction​        图提供了真实复杂世界系统的一种自然的表达方式。社区发现方法是理解这些系统的结构和行为
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -628,44 +722,6 @@
                     </a>
                     
                 </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/08/13/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-13
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            dede
-                            
-                        </span>
-                    </div>
-                </div>
-
                 
             </div>
         </div>
@@ -800,6 +856,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
