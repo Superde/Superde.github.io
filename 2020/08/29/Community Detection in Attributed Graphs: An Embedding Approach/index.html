@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Graph Attention Networks, 三环三星">
+    <meta name="keywords" content="Community Detection in Attributed Graphs: An Embedding Approach, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Graph Attention Networks | 三环三星</title>
+    <title>Community Detection in Attributed Graphs: An Embedding Approach | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0227.JPG')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Graph Attention Networks</h1>
+                    <h1 class="description center-align post-title">Community Detection in Attributed Graphs: An Embedding Approach</h1>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-20
+                    2020-08-29
                 </div>
                 
 
@@ -361,41 +361,113 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Graph-Attention-Networks"><a href="#Graph-Attention-Networks" class="headerlink" title="Graph Attention Networks"></a>Graph Attention Networks</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        人类的注意力机制（Attention Mechanism）是从直觉中得到的，它是人类利用有限的注意力资源从大量的信息中快速筛选出高价值信息的手段。</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/人类的注意力机制.png" alt="人类的注意力机制" style="zoom:50%;" /></p>
-<p>​        借鉴人类的注意力机制原理，将其运用到NLP，CV中，都已经取得了非常好的表现。 注意机制的好处之一是，它们允许处理大小可变的输入，着重于决策中输入最相关的部分。 当使用注意力机制来计算单个序列的表示时，通常将其称为自我注意力或内部注意力。 </p>
-<p>注意力机制有趣的属性：</p>
-<p>（1）计算速度快，可以在不同节点上进行并行操作</p>
-<p>（2）通过对邻域节点指定权重，可以泛化应用到任意具有不同度的节点</p>
-<p>（3）是一种inductive的模型，可以泛化到没有参与训练的节点</p>
-<p>​        GAT是为图上的节点分类任务设计，思想很简单，GAT中目标节点的向量表示是受其他节点的影响的，因此通过注意力机制找出对目标节点影响更大的节点，让它们参与到目标节点的嵌入过程中去，使得向量表示更准确。</p>
-<p>​        就好比是给一个人A作评价，然后需要找一些人对A作评价，根据这些人对A的评价，最后给出最终评价。如果随机找人来作评价肯定是不合适的，比较科学合适的方法是，找出A的亲朋好友，让他们来作评价，他们和A的关系更亲密，他们的评价也会更有参考价值，使最终的评价更准确。</p>
-<h2 id="GAT-Architecture"><a href="#GAT-Architecture" class="headerlink" title="GAT Architecture"></a>GAT Architecture</h2><h3 id="Graph-Attention-Layer"><a href="#Graph-Attention-Layer" class="headerlink" title="Graph Attention Layer"></a>Graph Attention Layer</h3><p>​        该层的输入是一组节点的特征，h = {$\vec{h_1},\vec{h_2},…,\vec{h_N}$}，$\vec{h_N}\in R^F$，其中 N 是节点数，F 是节点的特征维数，该层会生成一组新的节点特征作为该层的输出，$h’={}${$\vec{h’_1},\vec{h’_2},…,\vec{h’_N}$}，$\vec{h’_N}\in R^{F’}$。</p>
-<p>​        第一步，通过共享权重矩阵$W\in R^{F’\times F}$对每个节点参数做线性变换，即对节点特征的增维，然后引入注意力机制，$a:R^{F’}\times R^{F’}\to R$，计算<strong>初步注意力系数</strong>：</p>
+                <h1 id="Community-Detection-in-Attributed-Graphs-An-Embedding-Approach"><a href="#Community-Detection-in-Attributed-Graphs-An-Embedding-Approach" class="headerlink" title="Community Detection in Attributed Graphs: An Embedding Approach"></a>Community Detection in Attributed Graphs: An Embedding Approach</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>​        社区发现是一个被广泛研究的基本问题，其旨在发现紧密连接的节点群。随着现实网络中可用于实体的丰富信息的激增，在属性图中发现具有属性的社区意义重大。然而，目前现有的属性社区发现方法直接使用了原始的网络拓扑结构，导致结果不理想。本文中，我们提出了一种新颖的属性社区发现方法，具体而言，基于对社区中紧密连接的结构的观察，我们开发了一种新颖的社区结构嵌入方法，以通过底层社区隶属度对固有的社区结构进行编码。基于节点属性和社区结构嵌入，我们将属性社区发现公式华为非负矩阵分解优化问题。此外，我们精心设计了迭代更新规则，以确保找到一个收敛的解决方法。在19个属性图数据集上进行了广泛的实验，这些数据集具有重叠的和非重叠的真实社区，这表明我们提出的模型CDE可以准确识别归因社区，并且明显优于7种最新方法。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>​        社区作为功能模块广泛而自然地存在于现实世界的网络中，例如社交网络，协作网络和Web网络。社区发现（图聚类）算法是分析和理解大型网络的基础分析工具。在文献中，提出了许多基于网络拓扑结构来发现社区的方法。除了网络拓扑结构外，网络中的节点通常具有属性信息，这对于理解社区意义很重要，例如：引文网络中的论文都有关键词。这种具有节点属性的网络称为属性图。</p>
+<p>​        由于网络结构和节点属性这两种信息的不同，它给在属性图中发现有意义的社区带来了挑战。已经提出了很多中结合了拓扑结构信息和节点属性信息的方法。然而，对于无权重网络而言，所有这些方法都直接利用原始网络拓扑信息，该拓扑通过为每条边分配相同的值来忽略固有的社区结构。由于社区内的节点连接紧密，因此在属性图中存在大量紧密连接的子图。从直觉上讲，形成那些紧密连接的子图中的边比连接不同子图的边更容易构建相应的社区。考虑到图1中的例子，图（a）中，有两对相连的节点对$(v_1,v_3)$和$(v_1,v_2)$，其中$v_1$和$v_3$属于相同的社区，$v_1$和$v_2$则属于不同的社区，原始的拓扑结构不会反映这两对节点对之间的差异，因为这两对都分配了相同的值，1。然而$(v_1,v_3)$在构建社区中明显比$(v_1,v_2)$更重要。因此直接利用原始的拓扑结构会导致对节点对的一视同仁，而不管他们是否在同一个紧密连接的结构里。</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/邻接矩阵和社区结构嵌入矩阵对社区结构编码性能的比较.png" alt="邻接矩阵和社区结构嵌入矩阵对社区结构编码性能的比较" style="zoom:50%;" /></p>
+<p>​        节点在一个紧密相连的社区中，他们应该共享同质节点属性。作为最先进的方法之一，SCI将网络拓扑结构和节点属性与统一的目标函数结合在一起。然而，SCI不会分解稀疏的节点属性矩阵，而是将其作为适合社区隶属度的基础，由于节点属性矩阵的冗余和噪声，这会降低SCI的有效性。</p>
+<p>​        本文中，我们研究了属性社区发现问题，旨在发现节点间紧密相连且具有同类属性的社区。社区是可以重叠的，即一个节点可以属于多个社区。为了解决直接使用原始网络拓扑结构并充分利用节点属性的问题，我们提出了一种新的介于社区结构嵌入的社区发现模型，该模型结合了社区结构和节点属性。具体而言，我们基于对社区中紧密相连的结构的观察，提出了一种新颖的社区结构嵌入方法，以通过底层社区隶属度对固有社区结构进行编码。然后利用节点属性信息和社区结构嵌入，将属性社区发现公式转化为非负矩阵特征优化问题，并精心设计更新规则，以确保找到收敛的解决方法。</p>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>​        本文相关工作包括了结构图聚类，属性图聚类，网络嵌入。图聚类（社区发现）算法被广泛研究，本文中，我们重点关注图生成模型，图生成模型算法假设边是根据基于社区隶属度定义的概率生成的，他们设计概率模型来拟合真实的网络结构（即根据概率模型生成的图与真实图尽可能的相似）。结构图聚类的另一项相关工作是使用非负矩阵分解（NMF）技术。这些算法基于可将邻接矩阵分解为社区隶属度矩阵的线性组合的原理。这些方法都是直接利用原始玩过拓扑结构，忽略了固有的社区结构。</p>
+<p>​        <strong>属性图聚类：</strong>在文献中，已经有多重属性图聚类的方法，其中具有代表性的一种方法是利用一种判别模型，通过选择权重向量将节点属性合并到网络结构模型中。除了构建生成模型之外，其他一些方法还利用NMF技术来组合网络结构和节点属性，最先进的算法之一是SCI，它使用NMF技术将观察到的网络结构和节点属性相结合。然而，SCI直接分解邻接矩阵，而没有专注于分解节点属性矩阵，这忽略了边在形成社区结构中的各种意义，并导致无法充分利用节点属性。</p>
+<p>​        不同于这些结构图聚类和属性图聚类算法，我们开发了一种新颖的社区结构嵌入矩阵来编码固有的社区结构，而不是简答地使用观察到的网络拓扑进行社区检测。此外，我们的工作重点是同时分解社区结构嵌入矩阵和节点嵌入矩阵，以产生更好的性能。</p>
+<p>​        <strong>网络嵌入：</strong>本文的工作涉及网络嵌入，该网络学习用于表示节点的潜在向量。DeepWalk是具有代表性的网络嵌入算法之一，它通过将随机游走生成的节点序列看做是NLP中的句子来获得节点的向量表示。此外，也有人将社区结构结合到节点嵌入中。不同于现有的网络嵌入方法，本文的工作通过固有的社区隶属度对固有的社区结构进行编码，以用于社区检测。</p>
+<h2 id="3-Preliminaries"><a href="#3-Preliminaries" class="headerlink" title="3. Preliminaries"></a>3. Preliminaries</h2><p><strong>问题陈述：</strong></p>
+<p>​        给定无向有权重属性图$G=(V,E,W,T)$，$V=\{v_1,v_2,…,v_n\}$为点集，$E\subseteq V\times V$为边集，$W_{ij}$表示边$(v_i,v_j)$的权重，$T\in \{0,1\}_{n\times s}$是节点的属性矩阵，矩阵第$i$行表示了节点$v_i$的s维二元向量。此外，定义邻接矩阵为$A\in \{0,1\}_{n\times n}$。本文主要讨论无向无权重图，但是本文提出的模型可以拓展到有向有权重图。在本文的无权重图$G$中，$W_{ij}=A_{ij}=\{0,1\}$。</p>
+<p>​        给定一张属性图$G$，其中有$K$个社区，社区发现任务即中找出$K$个节点群$\cal G= \{g_1,…g_\rm K\}$使得：（1）相同节点群内节点连接非常紧密，不同节点群的节点间连接非常稀疏（2）相同节点群内节点具有相同的属性，不同节点群内的节点具有不同的属性。另外，本文中的社区发现问题是允许社区间存在重叠，即$g_i\cap g_j \neq\emptyset$。</p>
+<p><strong>Nonnegative Matrix Factorization（非负矩阵分解）：</strong></p>
+<p>​        给定$n$个节点和$K$个社区，我们定义社区隶属度矩阵$U_{n\times K}$，其中$U_{ij}$表示了第$i$个节点属于第$j$的概率。根据隶属度矩阵计算存在边的数量$UU^T$应该拟合通过邻接矩阵$A$得到的链接数。因此，基于最小化重建成本，可以将社区发现问题表示为(SNMF)：</p>
 <script type="math/tex; mode=display">
-e_{ij}=a(W\vec H_i,W\vec H_j)
-\tag{1}</script><p>$(,)$表示将两个向量进行拼接，$a$ 表示将拼接后的向量映射为一个实数。注意力系数表示了节点 $j$ 对节点 $i$ 的重要程度。得到初步注意力系数后，用Softmax进行归一化：</p>
+\mathop{min}\limits_{U\geq0}||A-UU^T||_F^2\tag{1}</script><p>​        SNMF使用了上述公式（1），这有着一个严重缺陷，它通过分解邻接矩阵$A$只利用了网络的拓扑结构。对于每对相连的节点对$v_i$和$v_j$，无论它们是否属于同一个社区，$A_{ij}=1$。因此，固有的社区截割头不能通过邻接矩阵$A$来表示。为了解决这个缺陷，我们设计了新颖的社区结构嵌入方法。</p>
+<h2 id="4-Community-Structure-Embedding"><a href="#4-Community-Structure-Embedding" class="headerlink" title="4. Community Structure Embedding"></a>4. Community Structure Embedding</h2><p>​        为了更好地描述图中固有的社区结构，我们提出了一种新颖的社区结构嵌入方法，根据节点潜在的社区隶属相似性来量化节点的结构紧密度。具体而言，我们设计了一个评估社区隶属相似度的函数$\cal F$。然后根据相似度指标，我们采用基于负采样的Skip-gram来探索网络结构并描述潜在的社区结构。最后我们获得了对固有社区结构编码的社区结构嵌入矩阵。</p>
+<p><strong>Community Membership Similarity：</strong></p>
+<p>​        我们从一个简洁合理的观察开始，因为节点在社区中紧密相连，所以每个链接的节点都应具有一定的属于同一社区的趋势。定义评估社区隶属相似度的函数${\cal F} (i,j)\in[0,1)$：</p>
 <script type="math/tex; mode=display">
-\alpha_{ij} = softmax_j(e_{ij})=\frac{exp(e_{ij})}{\sum_{k\in N_i}exp(e_{ik})}
-\tag{2}</script><p>式中：$N_i$表示节点 $i$ 的邻域节点。</p>
-<p>​        在本文的实验中，注意力机制$a$是由权重向量 $\vec a\in R^{2F’}$参数化单层前馈神经网络，并使用激活函数LeakyReLU（负输入斜率$\alpha=0.2$），完全展开后，<strong>最终注意力系数</strong>为：</p>
+{\cal F}(i,j)=2\sigma(U_{i:}U_{j:}^T)-1=2\times(\frac{1}{1+e^{-U_{i:}U_{j:}^T}}-1)
+\tag{2}</script><p>​        之所以选择sigmoid函数，是因为对于所有实数输入值，它都有界可微的实函数（real function）。因为${\cal F} (i,j)$只是$\sigma(U_{i:}U_{j:}^T)$的非线性变换，因此我们只讨论$\sigma(U_{i:}U_{j:}^T)$。</p>
+<p><strong>Community Structure Embedding Matrix (M)：</strong></p>
+<p>​        社区结构嵌入的方法主要是：最大化实际相连节点$v_i$和$v_j$的$\sigma(U_{i:}U_{j:}^T)$，同时最小化随机选择的两个节点</p>
+<p>$v_i$和$v_j$的$\sigma(U_{i:}U_{j:}^T)$。在现实世界中，大多数大规模图都是非常稀疏的，随机选择的两个节点相连的概率是非常低的。因此，通过基于负采样的Skip-gram，定义目标函数如下：</p>
 <script type="math/tex; mode=display">
-\alpha_{ij}=\frac{exp(LeakyReLU(\vec a^T[W\vec h_i||W\vec h_j]))}{\sum_{k\in N_i}exp(LeakyReLU(\vec a^T[W\vec h_i||W\vec h_k]))}
-\tag{3}</script><p>其中，$\cdot^T$表示转置，||表示向量连接，过程如下图所示：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/注意力系数.png" alt="注意力系数" style="zoom:40%;" /></p>
-<p>​        获得归一化的注意力系数后，把邻域节点的特征向量进行加权求和，最后将结果做一次非线性变换，以此作为每个节点最终的特征输出向量：</p>
+{\cal l}(i,j)=W_{ij}\big(log\sigma(U_{i:}U_{j:}^T)+{k}{\Bbb E}_{j_N\sim P_V}[log\sigma(-U_{i:}U_{j_N:}^T)]\big)
+\tag{3}</script><p>式中：$k$为负采样的样本数，$log\overset{\text{def}}{=}log_e$，$j_N$是根据经验分布$P_V(i)=\frac{d_i}{D}$，其中$d_i=\sum_jW_{ij}$是节点 $i$ 的度数，$D=\sum_id_i$是图$G$总度数。将上述内容带入公式（3）：</p>
 <script type="math/tex; mode=display">
-\vec {h'_i}=\sigma (\sum_{j\in N_i}\alpha_{ij}W\vec h_j)
-\tag{4}</script><h3 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h3><p>​        为了稳定自我注意力的学习过程，引入多头注意力机制。</p>
-<h4 id="Concat："><a href="#Concat：" class="headerlink" title="Concat："></a>Concat：</h4><p>​        由K个独立的注意力机制执行等式4的转换，然后将它们的特征连接起来，从而得到以下输出特征表示：</p>
+{\cal l}(i,j)=W_{ij}log\sigma(U_{i:}U_{j:}^T)+{k}\frac{d_id_j}{D}log\sigma(-U_{i:}U_{j_N:}^T)
+\tag{4}</script><p>接下来对公式（4）求导：</p>
 <script type="math/tex; mode=display">
-\vec{h'_i}=||_{k=1}^K(\sigma(\sum_{j\in N_i}\alpha_{ij}^kW^k\vec h_j))
-\tag{5}</script><p>​        其中，||为向量拼接操作，$\alpha_{ij}^k$是第$K$个注意力机制计算出的归一化注意力系数，$W^k$是相应的输入线性变化的权重矩阵。注意，在此设定下，最终返回的输出$h’$的维数为$KF’$。可以理解为多个卷积核的操作，每个注意力机制处理一部分的特征，最后将结果做一个拼接。</p>
-<h4 id="Average："><a href="#Average：" class="headerlink" title="Average："></a>Average：</h4><p>​        如果我们在网络的最终层上进行多头关注，则向量拼接是没有意义的，因此采用求平均，最后做非线性变化：</p>
+\frac{\partial{l(i,j)}}{\partial({U_{i:}U_{j:}^T)}}=W_{ij}\sigma(-U_{i:}U_{j:}^T)-{k}\frac{d_id_j}{D}\sigma(U_{i:}U_{j_N:}^T)
+\tag{5}</script><p>最后，通过将公式（5）=0，可以得到任意节点对的最优社区结构嵌入，并得出：</p>
 <script type="math/tex; mode=display">
-\vec {h'_i}=\sigma(\frac{1}{K}\sum_{k=1}^K\sum_{j\in N_i}\alpha_{ij}^kW^k\vec h_j)
-\tag{6}</script><p>下图说明了多头注意力机制的聚合过程：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/多头注意力机制.png" alt="多头注意力机制" style="zoom:40%;" /></p>
+U_{i:}U_{j:}^T=log\frac{W_{ij}D}{d_id_j}-logk
+\tag{6}</script><p>公式（6）可能是负的，如果为负，则设置为0。基于以上分析结果，我们定义一个新的社区结构嵌入矩阵：</p>
+<script type="math/tex; mode=display">
+M_{ij}=max\{U_{i:}U_{j:}^T,0\}=max\{log\frac{W_{ij}D}{d_id_j}-logk,0\}
+\tag{7}</script><p>对于每对不相连的$W_{ij}=0$节点对$v_i$和$v_j$，我们设置相应的$M_{ij}=0$。</p>
+<p>​        社区结构嵌入矩阵可以对潜在的紧密相连的子图进行编码，并探索固有的社区结构。此外，它可以容易地拓展到各种网络（有向无向，有权重无权重），有这广阔的应用场景。</p>
+<p><strong>Example：</strong></p>
+<p>​        举个简单例子，以证明社区结构嵌入矩阵$M$（k=2）在无权重图对固有社区结构编码的优越性能。图1（a）说明了有两个社区的无权重图，由于邻接矩阵$A$对每条边都设置了相同的值1，因此在发现两个社区时，无法确定那条边更重要。而如图1（b）社区结构嵌入矩阵可以为每个社区内的链接设置更高的权重，而为两个社区之间的链接设置更小的权重。特别是，社区结构嵌入矩阵降低了高度数节点间连接的权重，因为它们更可能在划分社区中发挥关键作用。如图1（a），节点$v_1$和节点$v_2$都有着最大的度数，因此删除（b）中边$(v_1,v_2)$，即$M_{v_1v_2}=0$。</p>
+<p><strong>Structure Embedding based Optimization：</strong></p>
+<p>​        不同于基于NMF的研究（如SNMF）直接通过邻接矩阵$A$利用图结构，本文使用社区结构嵌入矩阵来描述固有的社区结构。</p>
+<p>​        不考虑属性时，使用社区结构嵌入矩阵进行社区发现的问题可以表示为：</p>
+<script type="math/tex; mode=display">
+\mathop{min}\limits_{U\geq0}{\cal L}(U)=||M-UU^T||_F^2
+\tag{8}</script><h2 id="5-CDE-Model"><a href="#5-CDE-Model" class="headerlink" title="5. CDE Model"></a>5. CDE Model</h2><p>​        在本节中，我们提出CDE模型，来解决使用结构信息和节点属性信息对属性图进行社区发现的问题。</p>
+<p><strong>Community Attributes：</strong></p>
+<p>​        回想一下，在属性图中，社区不仅应具有紧密连接的结构，而且还应具有相同的属性。此外，不同的社区具有不同的属性。因此，我们定义社区属性矩阵$C\in R_{K\times s}$，其中$C_{ir}$表示第$i$个社区对第$r$维节点属性的偏向。</p>
+<p>​        我们将社区隶属度和社区属性的发现公式转化为非负矩阵分解问题，通过对节点属性矩阵进行分解来优化社区隶属度矩阵$U$和社区属性矩阵$C$：</p>
+<script type="math/tex; mode=display">
+\mathop{min}\limits_{U\geq0,C\geq0}{\cal L}(C)=||T-UC||_F^2+\alpha\sum_i||C_{:i}||_1^2
+\tag{9}</script><p>式中：$\alpha$是一个非负参数，来控制矩阵$C$的稀疏性。</p>
+<p>​        因为不同的社区倾向于拥有不同的属性，甚至，某些属性因此会互斥。为了解决这个问题，我们在C的每一列中使用了l1范数稀疏性，这减少了每个社区的不重要节点属性的干扰。</p>
+<p><strong>Unified Objective Function for CDE：</strong></p>
+<p>​        在属性图$G$中，CDE的目标是找到K个社区，并且相同社区内的节点紧密相连且拥有相同的属性。通过将社区结构嵌入的目标函数和节点属性分别合并为公式（8）和公式（9），定义最终的CDE的目标函数如下：</p>
+<script type="math/tex; mode=display">
+\mathop{min}\limits_{U\geq0,C\geq0}{\cal L}(U,C)=||T-UC||_F^2+\alpha\sum_i||C_{:i}||_1^2+\beta||M-UU^T||_F^2
+\tag{10}</script><p>式中：$\beta$是一个正参数，用于平衡节点属性矩阵$T$和社区结构嵌入矩阵$M$。更大的$\beta$会导致更依赖于社区结构嵌入矩阵$M$的分解来确定社区。</p>
+<p><strong>Identify Communities by U：</strong></p>
+<p>​        对于节点$v_i$，定义包含节点$v_i$的社区集合为$\psi(i)\subseteq\{1,…,K\}$。通过对公式（10）的优化后，我们获得了最佳的社区隶属度矩阵$U$。为了识别不重叠的社区，我们找出$v_i$对应的值最大的$U_{i:}$，即$\psi(i)=argmax_{1\leq j\leq K}U_{ij}$。对于重叠的社区发现问题，当$U_{ij}$大于某个阈值时，则认为节点$v_i$属于第$j$个社区，即$\psi(i)={1\leq j\leq K|U_{ij}&gt;\varepsilon}$。本文的实验中，设置阈值$\varepsilon-0.1$。</p>
+<p><strong>Iteratively Updating Rules for CDE：</strong></p>
+<p>​        由于目标函数（10）不是凸函数，我们采用了一个迭代更新规则。在每次迭代中，先固定$C$更新$U$，然后固定$U$更新$C$。</p>
+<ol>
+<li><p>首先固定$C$，更新$U$：</p>
+<script type="math/tex; mode=display">
+\mathop{min}\limits_{U\geq0}{\cal L}(U)=\beta||M-UU^T||_F^2+||T-UC||_F^2
+\tag{11}</script><p>初始化$U$后，可以按下式对$U$进行更新：</p>
+<script type="math/tex; mode=display">
+U_{ij}\leftarrow U_{ij}(\frac{(TC^T-UCC^T+2\beta MU)_{ij}}{(2\beta UU^TU)_ij})^{\frac{1}{4}}
+\tag{12}</script></li>
+<li><p>固定$U$，更新$C$：</p>
+<script type="math/tex; mode=display">
+\mathop{min}\limits_{C\geq0}{\cal L}(C)=||T-UC||_F^2+\alpha\sum_i||C_{:i}||_1^2
+\tag{13}</script><p>按下式对$C$进行更新：</p>
+<script type="math/tex; mode=display">
+C_{ij}\leftarrow C_{ij}\frac{(U'^TT')_{ij}}{(U'^TU'C)_{ij}}
+\tag{15}</script></li>
+</ol>
+<p><strong>Proof of Convergence:</strong></p>
+<p>…………………</p>
+<h2 id="6-Experiments"><a href="#6-Experiments" class="headerlink" title="6. Experiments"></a>6. Experiments</h2><p><strong>数据集：</strong></p>
+<p>数据集的详细信息如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/数据集信息.png" alt="数据集信息" style="zoom:50%;" /></p>
+<p><strong>参数敏感性分析：</strong></p>
+<p>​        在Wisconsin数据集上进行参数敏感性实验。CDE模型有着以下参数：</p>
+<p>（1）$\alpha$：负，控制社区属性矩阵$C$的稀疏性</p>
+<p>（2）$\beta$：正，平衡节点属性和社区结构嵌入的作用</p>
+<p>（3）$k$：决定负采样的数量</p>
+<p>​        首先设置$\alpha=\beta=1$，即认为节点属性和社区结构嵌入是同等重要，然后改变从1到100$k$，记录结果：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/参数敏感性实验1.png" alt="参数敏感性实验1" style="zoom:50%;" /></p>
+<p>可以观察到，$k=22$到$k=29$区间，得分较好。$k=25$时得分最高，AC=0.6645，NMI=0.409。</p>
+<p>​        接下来，设置$k=25$，然后改变$\alpha$和$\beta$，结果如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/参数敏感性实验2.png" alt="参数敏感性实验2" style="zoom:50%;" /></p>
+<p>可以看到，$\alpha=1,\beta=2$时，得分最高，AC=0.7321，NMI=0.4284。</p>
+<p><strong>重叠社区评估：</strong></p>
+<p>评估方法：每个被发现的社区匹配与它最相思的真实社区。给定被发现的社区集合$C$和现实存在的社区集合$C^*$，F1-Score和Jaccard的统一描述定义如下：</p>
+<script type="math/tex; mode=display">
+\frac{1}{2|C^*|}\sum_{C_i^*\in C^*}\mathop{max}\limits_{C_j\in C}\delta(C_i^*,C_j)+\frac{1}{2|C|}\sum_{C_j\in C}\mathop{max}\limits_{C_j^*\in C^*}\delta(C_i^*,C_j)</script><p>当$\delta(C_i^<em>,C_j)$定义为$C_i^</em>$和$C_j$的调和平均数（倒数平均数）时，即为F1-Score矩阵；当$\delta(C_i^<em>,C_j)=\frac{C_i^</em>\cap C_j}{C_i^*\cup C_j}$时，即为Jaccard矩阵。两个矩阵都是更高的分数代表了更好的性能。实验结果如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/重叠社区实验.png" alt="重叠社区实验" style="zoom:50%;" /></p>
+<p><strong>无重叠社区评估：</strong></p>
+<p>评估方法：AC和NMI</p>
+<p>实验结果如下图所示：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/无重叠社区实验.png" alt="无重叠社区实验" style="zoom:50%;" /></p>
 
             </div>
             <hr/>
@@ -421,7 +493,7 @@ e_{ij}=a(W\vec H_i,W\vec H_j)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/08/20/Graph%20Attention%20Networks/">https://dymzcc.github.io/2020/08/20/Graph%20Attention%20Networks/</a>
+                    <a href="https://dymzcc.github.io/2020/08/29/Community%20Detection%20in%20Attributed%20Graphs:%20An%20Embedding%20Approach/">https://dymzcc.github.io/2020/08/29/Community%20Detection%20in%20Attributed%20Graphs:%20An%20Embedding%20Approach/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -628,9 +700,10 @@ e_{ij}=a(W\vec H_i,W\vec H_j)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/08/29/Community%20Detection%20in%20Attributed%20Graphs:%20An%20Embedding%20Approach/">
                     <div class="card-image">
@@ -647,9 +720,9 @@ e_{ij}=a(W\vec H_i,W\vec H_j)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -662,6 +735,7 @@ e_{ij}=a(W\vec H_i,W\vec H_j)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -680,23 +754,25 @@ e_{ij}=a(W\vec H_i,W\vec H_j)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/">
+                <a href="/2020/08/20/Graph%20Attention%20Networks/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0256.JPG" class="responsive-img" alt="Overlapping Community Detectio nwith Graph Neural Networks">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="Graph Attention Networks">
                         
-                        <span class="card-title">Overlapping Community Detectio nwith Graph Neural Networks</span>
+                        <span class="card-title">Graph Attention Networks</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Overlapping Community Detection with Graph Neural NetworksIntroduction​        图提供了真实复杂世界系统的一种自然的表达方式。社区发现方法是理解这些系统的结构和行
+                            Graph Attention NetworksIntroduction​        人类的注意力机制（Attention Mechanism）是从直觉中得到的，它是人类利用有限的注意力资源从大量的信息中快速筛选出高价值信息的手段。
+
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-20
                             </span>
                         <span class="publish-author">
                             
