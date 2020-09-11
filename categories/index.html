@@ -250,11 +250,11 @@
                 
                 
                 
-                <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="论文阅读: 6">
+                <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="论文阅读: 7">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             style="background-color: #F9EBEA;">论文阅读
-                        <span class="tag-length">6</span>
+                        <span class="tag-length">7</span>
                     </span>
                 </a>
                 
@@ -281,6 +281,15 @@
                              chip-default "
                             data-tagname="Embedding" style="background-color: #F9EBEA;">Embedding
                         <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Community-Detection/" title="Community Detection: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Community Detection" style="background-color: #F5EEF8;">Community Detection
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -325,7 +334,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"论文阅读","max":12}],
+            indicator: [{"name":"论文阅读","max":14}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -336,7 +345,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [6],
+                    value : [7],
                     name : '文章分类数量'
                 }
             ]
@@ -406,7 +415,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,5,1],
+                data: [0,0,0,0,0,0,0,0,0,0,0,5,2],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -448,7 +457,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"论文阅读","value":6}],
+                data: [{"name":"论文阅读","value":7}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -472,7 +481,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Embedding"]
+                data: ["Embedding","Community Detection"]
             }
         ],
         yAxis: [
@@ -485,7 +494,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [6],
+                data: [6,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
