@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Community Detection Using Restrained Random-walk Similarity, 三环三星">
+    <meta name="keywords" content="Overlapping Community Detection Based on Random Walk and Seeds Extension, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Community Detection Using Restrained Random-walk Similarity | 三环三星</title>
+    <title>Overlapping Community Detection Based on Random Walk and Seeds Extension | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0255.JPG')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0257.JPG')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Community Detection Using Restrained Random-walk Similarity</h1>
+                    <h1 class="description center-align post-title">Overlapping Community Detection Based on Random Walk and Seeds Extension</h1>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-09-11
+                    2020-09-12
                 </div>
                 
 
@@ -361,27 +361,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Community-Detection-Using-Restrained-Random-walk-Similarity"><a href="#Community-Detection-Using-Restrained-Random-walk-Similarity" class="headerlink" title="Community Detection Using Restrained Random-walk Similarity"></a>Community Detection Using Restrained Random-walk Similarity</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>&emsp;&emsp;从一个节点开始长度有限的随机游走，如果这个节点经过了与之相似的节点集合，则认为这个节点也属于这个节点集合（即社区）。这个方法的提出是基于下列的思想：从初始节点出发进行游走，游走到和这个节点同属于一个社区的节点集合，那么初始节点和这个节点集合一定是相似的，因为初始节点最初更倾向于在该社区内进行游走。</p>
-<p>在以下两条件下，此方法效果更强：</p>
-<p><strong>1. 多次游走，删除不常访问节点</strong></p>
-<p>&emsp;&emsp;首先是避免异常的随机游走，因为游走有较小概率离开初始节点所在的社区，导致错误的聚类。异常随机游走的起始顶点被错误地聚类。<strong>因此，从每个节点出发，进行多次随机游走，将很少游走到的节点从可能游走经过的节点集合中删除。多次实验，就能减少小概率事件发生带来的偏差。</strong></p>
-<p><strong>2. 适时停止随机游走</strong></p>
-<p>&emsp;&emsp;在适当时间强制终止随机游走，根据观察：在第1阶段，随机游走会经常访问没有访问过的节点；在第2阶段，随机游走会重复访问已经访问过得节点，此时仍在初始节点所在的社区中游走；在第3阶段，随机游走会从最初的社区游走到其他社区。在理想情况下，应该在第二阶段停止随机游走。</p>
-<p>&emsp;&emsp;第二个条件对于规模大，规模小的社区发现都很有效。为了发现规模较大的社区，随机游走的长度需要更大；为了发现规模较小的社区，随机游走的长度需要短一些。总之，需要确定合适的随机游走长度阻止游走离开最初的社区。即定义一个阈值，自适应决定游走的步长。</p>
-<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>（1）Traditional Graph Partitioning（2）Modularity Optimization（3）Potts Mode（4）Random Walk（5）Statistical inference （6）Other Techniques</p>
-<h2 id="3-Restrained-Random-Walk-Similarity-Method"><a href="#3-Restrained-Random-Walk-Similarity-Method" class="headerlink" title="3. Restrained Random-Walk Similarity Method"></a>3. Restrained Random-Walk Similarity Method</h2><h3 id="3-1-Random-Walk-Similarity-Method"><a href="#3-1-Random-Walk-Similarity-Method" class="headerlink" title="3.1 Random-Walk Similarity Method"></a>3.1 Random-Walk Similarity Method</h3><p>&emsp;&emsp;Random-Walk Similarity Method是Restrained Random-Walk Similarity Method的基础，用下图简单介绍一下Random-Walk Similarity Method：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/随机游走相似性.png" alt="随机游走相似性" style="zoom:50%;" /></p>
-<p>&emsp;&emsp;从社区1中的节点开始随机游走，一段时间内，游走更倾向在社区1内游走，因为从社区1到社区2的边很少，游走出去的概率就小。同样地，从社区2开始的随机游走也是更倾向于在社区2内游走。基于随机游走的这种特性，如果在从所有节点执行有限长度的随机游走之后，游走经过的节点集之间存在高度相似性，因此本文的方法会将随机游走的起始节点和这些经过的节点聚集到相同的社区中。</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/Random Walk Similarity Method.png" alt="Random Walk Similarity Method" style="zoom:50%;" /></p>
-<p>&emsp;&emsp;详细步骤如Algorithm 1所示：在3-12行，每个节点$（v_1,…v_N）$都进行长度为$m$的随机游走，并获得随机游走序列$S_1,…S_N$。理想情况下，$S_i$应该只包括初始节点$v_i$和同个社区内的节点。然而，随机游走可能会从初始节点所在社区游走到其他社区，甚至可能在刚开始游走不久就离开了初始社区，因此集合$S_i$会包括了$v_i$以及和$v_i$不属于同个社区的节点。为了避免这种情况，在4-7行中，每个节点重复$p$次随机游走，并且只有频繁访问的节点才会被添加到$S_i$中（第8-11行）。在13-15行，节点$v_1,…v_N$基于集合$S_1,…,S_N$之间的Jaccard相似系数进行聚类。如果$sim(S_i,S_j)\geq th_{sim}$，节点$v_i$和$v_j$则归为同一类。还有一种特殊情况，也把$v_i$和$v_j$归为一类，没看懂，不谈。</p>
-<h3 id="3-2-Restraning-a-Random-Walk"><a href="#3-2-Restraning-a-Random-Walk" class="headerlink" title="3.2 Restraning a Random Walk"></a>3.2 Restraning a Random Walk</h3><p>&emsp;&emsp;在Random Walk Similarity中，很难去决定随机游走的长度（m），尤其是当图中有规模大的社区和规模小的社区的时候。然而，当m偏小时，尽管$v_i$和$v_j$处于同一个大规模社区中，$sim(S_i,S_j)$会偏小，因此大规模社区会被识别成多个小规模社区；而当m偏大时，从小社区中初始节点开始的随机游走会游走到其他社区中，因此$sim(S_i,S_j)$会偏高，小规模社区中的初始节点会被错误归类到其他社区中，导致无法识别小规模社区。</p>
-<p>&emsp;&emsp;为了解决这个问题，当随机游走已经经过了很多初始社区中的节点，且随机游走还没游走到另一个社区时，重新进行随机游走。</p>
-<p>&emsp;&emsp;首先考虑随机游走的步长和游走经过的唯一节点数之间的关系。下图表示Japanese temple/shrine数据集中具有17个节点的社区，从该社区中某点开始随机游走的过程：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/随机游走.png" alt="随机游走" style="zoom:50%;" /></p>
-<p>&emsp;&emsp;第一阶段，随机游走会大概率游走到未访问过的节点；第二阶段，随机游走会经常游走到已经访问过得节点；第三阶段，随机游走到新的社区，会访问未访问过的节点。</p>
-<p>&emsp;&emsp;基于上述观察，随机游走应该在第二阶段终止。当给定步长$w$下，随机游走访问的unique节点的增长$(n_i-n_{i-(w-1)})$小于算法中给定阈值，即停止随机游走，具体算法如下所示：</p>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/Restrained random walk.png" alt="Restrained random walk" style="zoom:50%;" /></p>
-<p>&emsp;&emsp;思路和Random-Walk Similarity Method差不多，只是加了游走停止的规则。</p>
+                <h1 id="Overlapping-Community-Detection-Based-on-Random-Walk-and-Seeds-Extension"><a href="#Overlapping-Community-Detection-Based-on-Random-Walk-and-Seeds-Extension" class="headerlink" title="Overlapping Community Detection Based on Random Walk and Seeds Extension"></a>Overlapping Community Detection Based on Random Walk and Seeds Extension</h1><h2 id="种子拓展的局部社区发现算法"><a href="#种子拓展的局部社区发现算法" class="headerlink" title="种子拓展的局部社区发现算法"></a>种子拓展的局部社区发现算法</h2><p>&emsp;&emsp;全局的社区发现方法有：层次聚类算法，谱方法，基于团的方法，边聚类，标签传播等。</p>
+<p>&emsp;&emsp;全局的社区发现需要对整个网络结构信息进行整体认知，在规模不大或者不完整的复杂网络中就会存在一些缺陷，所以就有人提出了基于种子拓展的局部社区发现方法。</p>
+<p>&emsp;&emsp;基于种子拓展的局部社区发现算法通常是从网络的种子节点出发，利用社区的局部信息不断的从网络中加入节点来发现社区结构。</p>
+<h2 id="SEOCD"><a href="#SEOCD" class="headerlink" title="SEOCD"></a>SEOCD</h2><p>&emsp;&emsp;为了能够准确的发现网络中的重叠社区结构，本文提出了基于随机游走和种子拓展的重叠社区发现算法（SEOCD）。在种子选取阶段，采用随机游走 $t$ 步之后最有可能返回自身的节点作为种子，根据节点和社区的相似度找出种子邻居集中相似度大于设定阈值的节点，与种子节点一起构成紧密的种子社区。</p>
+<h4 id="1-概念介绍"><a href="#1-概念介绍" class="headerlink" title="1. 概念介绍"></a>1. 概念介绍</h4><p>&emsp;&emsp;$G(V,E)$表示图或者网络，$V$为点集，$E$为边集，$n=|V|$表示节点数，$m=|E|$表示边数。</p>
+<p><strong>定义1：</strong>转移概率矩阵$p_{uv}$</p>
+<script type="math/tex; mode=display">
+p_{uv}=A_{uv}/k_v
+\tag{1}</script><p>&emsp;&emsp;式中，$A_{uv}$为邻接矩阵，$k_v$为节点$v$的度。$p_{uv}$表示节点$u$随机游走一步到达节点$v$的概率，随机游走$t$步后的转移概率矩阵为$p_{uv}^t$。</p>
+<p><strong>定义2</strong>：评分矩阵B：</p>
+<script type="math/tex; mode=display">
+B=\sum_{t=1}^Tp_{uv}^t
+\tag{2}</script><p>&emsp;&emsp;评分矩阵$B$中每个元素代表节点$u$走$t$步后到达节点$v$所得到的评分，用$B(u,v)$表示，若两个节点连接越紧密，其评分越高。</p>
+<p><strong>定义3：</strong>社区邻居集$NBSet(C_i)$表示与社区$C_i$有连接边的节点集合：</p>
+<script type="math/tex; mode=display">
+NBSet(C_i)=\bigcup_{v\in C_i}\Gamma(v)
+\tag{3}</script><script type="math/tex; mode=display">
+\Gamma(v)=\{u:u\in V,(v,u)\in E\}
+\tag{4}</script><p>&emsp;&emsp;式中，$C_i$表示一个社区，$\Gamma(v)$表示节点$v$的邻域集合。</p>
+<p><strong>定义4：</strong>节点$v$与社区$C_i$相似度$NC_SIM(v,C_i)$：</p>
+<script type="math/tex; mode=display">
+NC\_SIM(v,C_i)=\frac{k_v^{C_i}}{k_v}
+\tag{5}</script><p>&emsp;&emsp;式中，$k_v^{C_i}$表示节点$v$与社区$C_i$关联边的度，$k_v$为节点$v$的度，$NC_SIM(v,C_i)$越大，节点$v$越有可能属于社区$C_i$。</p>
+<p><strong>定义5：</strong>社区$C_i$和社区$C_j$的相似度$CC_SIM(C_i,C_j)$定义为：</p>
+<script type="math/tex; mode=display">
+CC\_SIM(C_i,C_j)=\frac{|overlap(C_i,C_j|}{min(|C_i|,|C_j|)}
+\tag{6}</script><p>&emsp;&emsp;式中，$|overlaop(C_i,C_j)|$表示社区$C_i$和$C_j$共有的节点数，$|C_i|$表示社区$C_i$的节点数。$CC_SIM(C_i,C_j)$越大，表示两个社区结构越相近，当超过一个阈值$\varepsilon$时，则需合并两个社区。</p>
+<p><strong>定义6：</strong>自适应函数用于衡量一组节点的紧密程度，具体公式定义如下：</p>
+<script type="math/tex; mode=display">
+f_{\rm g}=\frac{k_{in}^{\rm g}}{(k_{in}^{\rm g}+k_{out}^{\rm g})^{\alpha}}
+\tag{7}</script><p>&emsp;&emsp;式中：$k_{in}^{\rm g}$和$k_{out}^{\rm g}$为子图$\rm g$内部度和外部度的总值，参数$\alpha$是一个正实数，用于控制发现的社区的规模。</p>
+<h4 id="2-SEOCD算法的实现"><a href="#2-SEOCD算法的实现" class="headerlink" title="2. SEOCD算法的实现"></a>2. SEOCD算法的实现</h4><p>&emsp;&emsp;基于随机游走与种子拓展重叠社区发现算法（Seeds Extension Overlapping Community Detection，SEOCD）核心步骤为检测种子社区和社区拓展挖掘。在种子社区检测阶段，采用随机游走的策略找到初始种子，然后选择与种子紧密相连的邻居节点一起构成种子社区；在社区拓展阶段，利用局部节点和邻居节点相关信息，取具有最大相似度且能够优化局部自适应函数的节点来加入社区，以实现整个网络的社区划分。由于每个种子社区都是沿其邻居集独立进行社区拓展，因此可以发现重叠社区。</p>
+<p>&emsp;&emsp;SEOCD算法分为4个阶段：（1）种子社区检测（2）相似种子社区合并（3）社区拓展挖掘（4）社区优化</p>
+<p><strong>（1）种子社区检测</strong></p>
+<p>&emsp;&emsp;首先计算每个节点$v$随机游走$t$步后回到自身的评分值$B(u,v)$，按评分值排序，选择最高的$l$个节点作为初始种子，然后按公式（5）找出初始种子社区邻居集中与种子社区相似度$NC_SIM$大于阈值$\varepsilon$的节点，与$v$合并得到社区$S$。</p>
+<p><strong>（2）相似种子社区合并</strong></p>
+<p>&emsp;&emsp;在检测种子社区阶段，由于是基于整个网络选取的种子构成种子社区，可能会出现两个种子社区的相似度高的情况，因此需要将其合并。根据公式（6）计算社区之间相似度$CC_SIM(C_i,C_j)$，如果相似度大于阈值$\varepsilon$，则合并两个种子社区。</p>
+<p><strong>（3）社区拓展挖掘</strong></p>
+<p>&emsp;&emsp;得到稳定紧密的种子社区后，从种子社区出发进行社区拓展挖掘：首先遍历种子社区的邻居集$NBSet$，根据公式（5）计算每个邻居节点和社区的相似度，取前面$l$个最高相似度的种子，然后计算这些节点加入局部社区后的自适应函数值，把能够让自适应函数值增加的节点加入到社区，否则就将其设置为自由节点，同时删除社区中让自适应函数值减少的节点。最后更新$NBSet$并重复上述步骤，知道$NBSet$为空。</p>
+<p><strong>（4）社区优化</strong></p>
+<p>&emsp;&emsp;在社区拓展过程中，可能还会存在不属于任何社区的自由节点，而且社区集合中还会出现相似度高的社区。因此需要对社区进行优化。首先，计算节点和社区的相似度，把自由节点分到相似度最高的社区；然后，根据公式（6）计算社区与社区之间的相似度，合并相似度高的社区；最后输出网络社区划分的结果</p>
 
             </div>
             <hr/>
@@ -407,7 +427,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/09/11/Community%20Detection%20Using%20Restrained%20Random-walk%20Similarity/">https://dymzcc.github.io/2020/09/11/Community%20Detection%20Using%20Restrained%20Random-walk%20Similarity/</a>
+                    <a href="https://dymzcc.github.io/2020/09/12/Overlapping%20Community%20Detection%20Based%20on%20Random%20Walk%20and%20Seeds%20Extension/">https://dymzcc.github.io/2020/09/12/Overlapping%20Community%20Detection%20Based%20on%20Random%20Walk%20and%20Seeds%20Extension/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -614,9 +634,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/09/12/Overlapping%20Community%20Detection%20Based%20on%20Random%20Walk%20and%20Seeds%20Extension/">
                     <div class="card-image">
@@ -633,9 +654,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -648,6 +669,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -666,23 +688,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/05/Adaptive%20Graph%20Encoder%20for%20Attributed%20Graph%20Embedding/">
+                <a href="/2020/09/11/Community%20Detection%20Using%20Restrained%20Random-walk%20Similarity/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0241.JPG" class="responsive-img" alt="Adaptive Graph Encoder for Attributed Graph Embedding">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0255.JPG" class="responsive-img" alt="Community Detection Using Restrained Random-walk Similarity">
                         
-                        <span class="card-title">Adaptive Graph Encoder for Attributed Graph Embedding</span>
+                        <span class="card-title">Community Detection Using Restrained Random-walk Similarity</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Adaptive Graph Encoder for Attributed Graph EmbeddingAbstract​        属性图嵌入是图分析中具有挑战性的一项任务。目前GCN已经取得了引人注目的成果，但是GCN存在着以下缺
+                            Community Detection Using Restrained Random-walk Similarity1. Introduction&emsp;&emsp;从一个节点开始长度有限的随机游走，如果这个节点经过了与之相似的节点集
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-11
                             </span>
                         <span class="publish-author">
                             
@@ -699,8 +721,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Embedding/">
-                        <span class="chip bg-color">Embedding</span>
+                    <a href="/tags/Community-Detection/">
+                        <span class="chip bg-color">Community Detection</span>
                     </a>
                     
                 </div>
