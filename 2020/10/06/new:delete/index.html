@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Overlapping Community Detection with Graph Neural Networks, 三环三星">
+    <meta name="keywords" content="new/delete和malloc/free, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Overlapping Community Detection with Graph Neural Networks | 三环三星</title>
+    <title>new/delete和malloc/free | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,12 +198,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0257.JPG')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Overlapping Community Detection with Graph Neural Networks</h1>
+                    <h1 class="description center-align post-title">new/delete和malloc/free</h1>
                 </div>
             </div>
         </div>
@@ -320,8 +320,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Embedding/">
-                                <span class="chip bg-color">Embedding</span>
+                            <a href="/tags/Community-Detection/">
+                                <span class="chip bg-color">Community Detection</span>
                             </a>
                         
                     </div>
@@ -332,8 +332,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
-                                论文阅读
+                            <a href="/categories/C-%E7%A2%8E%E7%A2%8E%E5%BF%B5/" class="post-category">
+                                C++碎碎念
                             </a>
                         
                     </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-18
+                    2020-10-06
                 </div>
                 
 
@@ -361,36 +361,22 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Overlapping-Community-Detection-with-Graph-Neural-Networks"><a href="#Overlapping-Community-Detection-with-Graph-Neural-Networks" class="headerlink" title="Overlapping Community Detection with Graph Neural Networks"></a>Overlapping Community Detection with Graph Neural Networks</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>​        图提供了真实复杂世界系统的一种自然的表达方式。社区发现方法是理解这些系统的结构和行为的重要工具。社区发现问题引起了研究社区的广泛关注，并提出了许多模型和算法。</p>
-<p>​        近年来，图上的深度学习已经取得了令人瞩目的成效，并在图相关任务（如链接预测，节点分类）中取得了空前的成果，但无监督社区发现任务却少有人关注。目前已经提出了几种方法，但是他们都有一个共同的缺点：只关注不重叠社区的特殊情况。然而，现实中的社区大部分都是重叠的，处理重叠的社区发现问题是现有的深度学习方法无法满足的。在本文中，我们解决了这一研究空白，并提出了一种能够检测重叠社区的深度学习模型。</p>
-<h2 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h2><p>$G$表示无向无权重图，$A\in\{0,1\}^{N\times N}$表示邻接矩阵</p>
-<p>$V=\{1,…,N\}$表示点集，$N$为节点数，$E=\{(u,v)\in V\times V:A_{uv}=1\}$表示边集，$M$为边数</p>
-<p>每个节点对应一个$D$维属性向量，所有节点可以用属性矩阵$X\in \Bbb R^{N\times D}$表示</p>
-<p>重叠社区发现的目标是将节点分配到$C$个社区，可以通过节点隶属度矩阵$F\in \Bbb R^{N\times C}_{\geq 0}$来分配，其中$F_{uc}$表示节点$u$对社区$c$的隶属度。</p>
-<p>“社区”没有一个统一的定义，本文采用这样的定义：社区是一组节点，与图上的其他节点相比，社区内节点之间连接形成边的概率更大。这样，可以根据概率推断框架来处理社区发现问题。一旦为图建立了基于社区的生成模型$p(G|F)$，社区发现问题就可以归结为给定图$G$，推断出隶属关系矩阵$F$。</p>
-<h2 id="NOCD模型"><a href="#NOCD模型" class="headerlink" title="NOCD模型"></a>NOCD模型</h2><h3 id="1-BP模型"><a href="#1-BP模型" class="headerlink" title="1. BP模型"></a>1. BP模型</h3><p>​        Bernoulli-Poisson（BP）是一个图生成式模型，能够处理重叠的社区。根据BP模型，图的生成如下所示：给定隶属关系矩阵$F\in\Bbb R^{N\times C}_{\geq0}$，邻接矩阵中$A_{uv}$按下式进行采样：</p>
-<script type="math/tex; mode=display">
-A_{uv}\sim Bernoulli(1-exp(-F_uF_v^T))
-\tag{1}</script><p>式中$F_u$是节点$u$对应的社区隶属度向量，上式定义了两个顶点$u$和$v$之间存在边的概率，可以理解为图中真实存在的边是根据这些两两之间相连的概率采样得到的。<strong>直观地，节点$u$和$v$之间共享的社区越多，它们之间存在边的概率越大</strong>。该模型有许多理想的属性：（1）可以产生各种社区拓扑结构，生成密集的重叠社区（2）计算高效。</p>
-<h3 id="2-模型定义"><a href="#2-模型定义" class="headerlink" title="2. 模型定义"></a>2. 模型定义</h3><p>​        本文中没有把$F$作为自由变量去优化，即没有像node2vec，LINE那样直接优化隶属度向量$F_u$的向量表达。而是通过GNN来生成隶属度矩阵$F$，通过训练参数矩阵$\theta$来优化隶属度向量$F_u$的向量表达：</p>
-<script type="math/tex; mode=display">
-F:=GNN_{\theta}(A,X)
-\tag{2}</script><p>式中：A为邻接矩阵，X为特征矩阵</p>
-<p>​        在本文的实验中，GNN为2层的GCN，GCN定义如下：</p>
-<script type="math/tex; mode=display">
-F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
-\tag{3}</script><p>式中$\hat A=\tilde D^{-1/2}\tilde A\tilde D^{-1/2}$是归一化的邻接矩阵，$\tilde A=A+I_N$是邻接矩阵$A$加上一个单位矩阵，$\tilde D$表示$\tilde A$的度矩阵。</p>
-<p>​        输入特征矩阵$X$和邻接矩阵$A$，然后经过两层GCN，得到隶属度矩阵$F$，如果节点的特征属性$X$不可用，可以把$A$作为节点特征进行输入。为什么进行这个操作？后面作者也说了，实验结果说明了一切。</p>
-<p>​        定义了隶属度矩阵$F$的表达后，接下来要定义损失函数，来优化GCN的参数矩阵，最终优化$F$的向量表达。首先定义BP模型的负对数似然（negative log-likelihood）：</p>
-<script type="math/tex; mode=display">
--logp(A|F)=-\sum_{(u,v)\in E}log\big(1-exp(-F_uF_v^T)\big)+\sum_{(u,v)\notin E}F_uF_v^T
-\tag{4}</script><p>​        这个可以理解为，确定了每个节点的隶属度向量，即确定了每个节点对各个社区的隶属概率后，对图中所有节点两两相连的概率进行计算，即确定了$F$后确定邻接矩阵$A$的条件概率：$-logp(A|F)$。由于真实图是比较稀疏的，这会导致第二项 $\sum_{(u,v)\notin E}F_uF_v^T$会对损失的影响更大，因此使用平衡分类的技术来定义损失函数：</p>
-<script type="math/tex; mode=display">
-\cal L(\it F)=-\Bbb E_{(u,v)\sim P_E}\rm [log\big(1-exp(-F_uF_\it v^T\rm)\big)]+\Bbb E_{(u,\it v\rm)\sim P_N}[F_uF_\it v^T\rm]
-\tag{5}</script><p>实验没有对隶属矩阵$F$进行直接优化，而是通过确定最优的参数$\theta^{\star}$来最小化负对数似然：</p>
-<script type="math/tex; mode=display">
-\theta^{\star}=\mathop{argmin}\limits_{\theta}\cal L\big(\rm GNN_{\theta}(A,X)\big)
-\tag{6}</script>
+                <h4 id="1-malloc-free"><a href="#1-malloc-free" class="headerlink" title="1. malloc/free"></a>1. malloc/free</h4><p>&emsp;&emsp;在C语言中，需要动态开辟内存时，可以调用malloc函数()，从堆里获得空间，即malloc函数返回指向堆里面一块内存的指针。操作系统中有一个记录空闲内存地址的链表，如果收到获取内存空间的请求，就会遍历这个链表，找到第一个空间大于申请空间的堆结点，然后将该节点从链表中删除，并返回指向该空间的指针。</p>
+<p>&emsp;&emsp;在使用malloc分配内存空间后，一定要使用free()函数释放内存空间，否则就会内存泄露。另外，free()释放的是内存空间，并没有释放指向该空间的指针，如果不在释放内存后将该指针指向NULL，就会形成悬空指针。</p>
+<h4 id="2-内部数据对象和非内部数据对象"><a href="#2-内部数据对象和非内部数据对象" class="headerlink" title="2. 内部数据对象和非内部数据对象"></a>2. 内部数据对象和非内部数据对象</h4><p>&emsp;&emsp;简单来说：内部数据对象就是编译器本来就认识的，不需要用户自己定义；非内部数据类型不是编译器本来就认识的，需要用户自己定义才能让编译器识别。</p>
+<p>&emsp;&emsp;malloc/free是标准库函数，只负责分配内存，编译器不会对其进行编译检查。类的对象的生成和消亡需要分别调用构造函数和析构函数，需要编译器进行编译检查，因此malloc/free无法执行构造函数和析构函数。因此引入new/delete运算符。</p>
+<h4 id="3-new-delete"><a href="#3-new-delete" class="headerlink" title="3. new/delete"></a>3. new/delete</h4><p>&emsp;&emsp;new/delete是操作符，与”+”、”-“一样，与malloc/free类似，可以用于申请动态内存和释放内存。</p>
+<p>（1）当使用new动态申请内存时：首先调用operator new标准库函数，据说这个标准库函数的底层实际上还是malloc，传入的参数为目标对象的大小；此时申请到的内存时未初始化的，接着就在这块内存上调用相应的构造函数；最后一步返回新分配并构造好的对象的指针</p>
+<p>（2）当使用delete释放内存时：调用对象的析构函数，然后调用operator delete标准库函数来释放该内存，同样据说这个标准库函数的底层实际上是free，传入的参数为对象的地址值</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A *p = new A(10);        //创建一个类的对象，返回其指针
+delete p;                      //释放该内存
+*p->NULL;                      //指向NULL
+</code></pre>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/new:delete.png" alt="new:delete" style="zoom:50%;" /></p>
+<h4 id="4-二者的区别"><a href="#4-二者的区别" class="headerlink" title="4. 二者的区别"></a>4. 二者的区别</h4><p><strong>本质区别：</strong>new/delete是操作符，与”+”、”-“一样，malloc/free是标准库函数。</p>
+<p><strong>操作对象范围不同：</strong>new操作是分三步的：第一步申请内存，第二步调用构造函数初始化对象，第三步返回指向该对象的指针。delete操作同样：第一步调用析构函数，第二步销毁堆内存。对于这样需要调用构造函数和析构函数的对象来说，malloc/free无法满足要求。换言之 ， 对于非内部数据类型的对象而言，光用 malloc/free 无法满足动态对象的要求。对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。由于 malloc/free 是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于 malloc/free 。</p>
+<p><strong>用法不同：</strong>（1） new能够按照变量类型自动地分配所需空间长度，不必使用宏sizeof（2）new能够自动返回正确的指针类型（3）必须时，new能将单个变量初始化。</p>
+
             </div>
             <hr/>
 
@@ -415,7 +401,7 @@ F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/">https://dymzcc.github.io/2020/08/18/Overlapping%20Community%20Detectionwith%20Graph%20Neural%20Networks/</a>
+                    <a href="https://dymzcc.github.io/2020/10/06/new:delete/">https://dymzcc.github.io/2020/10/06/new:delete/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -453,8 +439,8 @@ F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Embedding/">
-                                    <span class="chip bg-color">Embedding</span>
+                                <a href="/tags/Community-Detection/">
+                                    <span class="chip bg-color">Community Detection</span>
                                 </a>
                             
                         </div>
@@ -622,47 +608,47 @@ F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/08/20/Graph%20Attention%20Networks/">
+                <a href="/2020/10/06/new:delete/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="Graph Attention Networks">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0257.JPG" class="responsive-img" alt="new/delete和malloc/free">
                         
-                        <span class="card-title">Graph Attention Networks</span>
+                        <span class="card-title">new/delete和malloc/free</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Graph Attention NetworksIntroduction​        人类的注意力机制（Attention Mechanism）是从直觉中得到的，它是人类利用有限的注意力资源从大量的信息中快速筛选出高价值信息的手段。
-
-
+                            1. malloc/free&emsp;&emsp;在C语言中，需要动态开辟内存时，可以调用malloc函数()，从堆里获得空间，即malloc函数返回指向堆里面一块内存的指针。操作系统中有一个记录空闲内存地址的链表，如果收到获取内存空间的
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
-                                    论文阅读
+                            <a href="/categories/C-%E7%A2%8E%E7%A2%8E%E5%BF%B5/" class="post-category">
+                                    C++碎碎念
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Embedding/">
-                        <span class="chip bg-color">Embedding</span>
+                    <a href="/tags/Community-Detection/">
+                        <span class="chip bg-color">Community Detection</span>
                     </a>
                     
                 </div>
@@ -676,23 +662,23 @@ F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/18/GraphGAN-Graph-Representation-Learning-with-Generative-Adversarial-Nets/">
+                <a href="/2020/09/12/Overlapping%20Community%20Detection%20Based%20on%20Random%20Walk%20and%20Seeds%20Extension/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="GraphGAN: Graph Representation Learning with Generative Adversarial Nets">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="Overlapping Community Detection Based on Random Walk and Seeds Extension">
                         
-                        <span class="card-title">GraphGAN: Graph Representation Learning with Generative Adversarial Nets</span>
+                        <span class="card-title">Overlapping Community Detection Based on Random Walk and Seeds Extension</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GraphGAN: Graph Representation Learning with Generative Adversarial NetsIntroduction​        大多数的图嵌入算法可以分为两类：生成式的图嵌入算法，判
+                            Overlapping Community Detection Based on Random Walk and Seeds Extension种子拓展的局部社区发现算法&emsp;&emsp;全局的社区发现方法有：层次聚类算法，谱方法，基
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
                             </span>
                         <span class="publish-author">
                             
@@ -709,8 +695,8 @@ F:=GCN_{\theta}(A,X)=ReLU\big(\hat AReLU(\hat AXW^{(1)})W^{(2)}\big)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Embedding/">
-                        <span class="chip bg-color">Embedding</span>
+                    <a href="/tags/Community-Detection/">
+                        <span class="chip bg-color">Community Detection</span>
                     </a>
                     
                 </div>
