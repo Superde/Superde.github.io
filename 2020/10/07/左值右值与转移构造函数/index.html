@@ -684,31 +684,29 @@ template <class T> swap(T& a, T& b) &#123;
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/07/%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E4%B8%8E%E8%BD%AC%E7%A7%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
+                <a href="/2020/10/07/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="右值与转移构造函数">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="内存分配">
                         
-                        <span class="card-title">右值与转移构造函数</span>
+                        <span class="card-title">内存分配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 左值、右值、左值引用、右值引用左值：它表示一个可被标识的（变量或对象的）内存位置，并且允许使用&amp;操作符来获取这块内存的地址
-右值：如果一个表达式不是左值，那就是右值
-左值引用：对一个左值进行引用的类型，声明符号为”&amp;”
+                            1. 内存分区（1）堆：由程序员手动分配和释放，完全不同于数据结构中的堆，分配方式类似链表。由malloc或new来分配，由free或delete释放。如果程序员不释放，程序结束时由系统释放。
+（2）栈：由编译器自动分配和释放，存放函数的参
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -721,7 +719,6 @@ template <class T> swap(T& a, T& b) &#123;
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
