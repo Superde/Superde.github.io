@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="内存分配, 三环三星">
+    <meta name="keywords" content="const关键字, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>内存分配 | 三环三星</title>
+    <title>const关键字 | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">内存分配</h1>
+                    <h1 class="description center-align post-title">const关键字</h1>
                 </div>
             </div>
         </div>
@@ -361,44 +361,73 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1-内存分区"><a href="#1-内存分区" class="headerlink" title="1. 内存分区"></a>1. 内存分区</h4><p><strong>（1）堆：</strong>由程序员手动分配和释放，完全不同于数据结构中的堆，分配方式类似链表。由malloc或new来分配，由free或delete释放。如果程序员不释放，程序结束时由系统释放。</p>
-<p><strong>（2）栈：</strong>由编译器自动分配和释放，存放函数的参数值、局部变量的值等。操作方式类似数据结构中的栈。</p>
-<p><strong>（3）全局（静态）存储区：</strong>存放全局变量和静态变量。包括两部分：DATA段（全局初始化区）和BSS段（全局未初始化区）。初始化后的全局变量和静态变量存放在DATA段，未初始化的全局变量和未初始化的静态变量存放在BSS段。程序结束后由系统释放。另外，BSS段在程序执行之前会自动清0，因此未初始化的全局变量和静态变量在程序执行之前会变成0。</p>
-<p><strong>（4）文字常量区：</strong>常量字符串就是放在这里，程序结束后由系统释放。</p>
-<p><strong>（5）程序代码区：</strong>存放函数体的二进制代码。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">int  a=0;   全局初始化区    
+                <h4 id="1-基本数据类型与const"><a href="#1-基本数据类型与const" class="headerlink" title="1. 基本数据类型与const"></a>1. 基本数据类型与const</h4><p>（1）const修饰变量，含义是const修饰的对象的值不可变</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int const age = 20;
+const int age = 20;
+</code></pre>
+<p>（2）const的对象是文件局部变量，只能用于本编译模块，使用extern const声明该常量可以作用于其他编译模块，即被其他文件访问</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">extern const int age = 20;
+//extern用于告诉编译器存在着一个变量或者函数，当前编译语句前如果没有定义的话，那么该变量或者函数定义在文件的后头或者其它文件中，即提示编译器遇到此变量和函数时在其他模块中寻找其定义。
+</code></pre>
+<h4 id="2-指针与const"><a href="#2-指针与const" class="headerlink" title="2. 指针与const"></a>2. 指针与const</h4><p>（1）指针本身是常量，所指对象不可变，但是对象的值可以变，这种指针在声明时必须初始化</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int c = 20;
+int* const age = &c;
+</code></pre>
+<p>（2）指针指向的内容是常量，不可变</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">const int* age;
+</code></pre>
+<p>（3）二者都不可变</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int c = 20;
+const int* const age = &c;
+</code></pre>
+<p>如果const位于*的右侧，指针本身是常量</p>
+<p>如果const位于*的左侧，指针指向常量；</p>
+<h4 id="3-引用与const"><a href="#3-引用与const" class="headerlink" title="3. 引用与const"></a>3. 引用与const</h4><p>&emsp;&emsp;const引用就是指向const对象的引用，普通引用无法绑定到const对象上，但const引用可以绑定到非const对象上</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int var1 = 1, var2 = 2;
+int &a = 0;                                     // 一般引用无法绑定到字面值常量
+const int &b = 0;                         //const引用可以绑定字面常量值
+int &c = var1 + var2;                 //错误，左值引用不可绑定右值
+const int &d = var1 + var2;     //const引用可以绑定右值
+</code></pre>
+<h4 id="4-函数与const"><a href="#4-函数与const" class="headerlink" title="4. 函数与const"></a>4. 函数与const</h4><p>（1）const修饰函数的参数</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">void function(const int var);         //传递过来的参数在函数内无法改变，无意义，因为var本来就是形参
 
-char *p1;   全局未初始化区    
-int  main()    
-&#123;    
-  int  b;                                 //栈    
-  char  s[]="abc";                 //栈    
-  char  *p2;                             //栈    
-  char  *p3="123456";         //123456/0在常量区，p3在栈上。    
+void function(const int* var);        //参数指针所指内容为常量，不可变
 
-  static int c =0；                        //全局（静态）初始化区    
-  p1 =  (char  *)malloc(10);  //分配得来得10和20字节的区域就在堆区
-  p2  = (char  *)malloc(20);       
-  strcpy(p3,"123456"); //123456/0放在常量区，编译器可能会将它与p3所指向的"123456"  优化成一个地方。    
+void function(int* const var);        //参数指针本身为常量，不可变，也无意义，因为指针也是形参
+
+void function(const int& var);        //引用参数在函数内为常量不可变
+</code></pre>
+<p>（2）const修饰函数返回值，令函数返回值为一个常量</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">const int fun1();             //无意义，参数返回本身就是赋值
+const int* fun2();            //指针指向函数，指针内容不可变
+int* const fun3();            //指针指向函数，指针本身不可变
+</code></pre>
+<h4 id="5-类与const"><a href="#5-类与const" class="headerlink" title="5. 类与const"></a>5. 类与const</h4><p>（1）const修饰成员变量，表示成员常量，不能被修改，只能在初始化列表中赋值</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A&#123;
+  const int age;            //成员常量不能被修改，只能在初始化的时候赋值
+  ...
+  A(int x):age(x)&#123;&#125;;
 &#125;
 </code></pre>
-<h4 id="2-堆和栈的区别"><a href="#2-堆和栈的区别" class="headerlink" title="2. 堆和栈的区别"></a>2. 堆和栈的区别</h4><p><strong>（1）管理方式</strong></p>
-<p>&emsp;&emsp;栈由编译器自动管理，无需手工控制；堆由程序员控制，如果不释放会内存溢出。</p>
-<p><strong>（2）空间大小</strong></p>
-<p>&emsp;&emsp;堆内存大，32位系统下，堆内存可以达到4G；栈有一定的空间大小，2M还是1M，反正不大，且编译时确定了</p>
-<p><strong>（3）碎片问题</strong></p>
-<p>&emsp;&emsp;对于堆来说，频繁的new/delete会造成内存空间的不连续，产生大量碎片，使程序效率降低；对于栈来说，栈是先进后出的丢列，不会有内存块从栈中间弹出，因此不会造成内存空间不连续。</p>
-<p><strong>（4）生长方向：</strong></p>
-<p>&emsp;&emsp;堆都是动态分配的，没有静态分配的堆。栈有2种分配方式：静态分配和动态分配。静态分配是编译器完成的，比如局部变量的分配。栈的动态分配由 alloca 函数进行分配，但是栈的动态分配和堆是不同的，他的动态分配是由编译器进行释放，无需我们手工实现。</p>
-<p><strong>（5）分配效率：</strong></p>
-<p>&emsp;&emsp;栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是 C/C++ 函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法（具体的算法可以参考数据结构/操作系统）在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于内存碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆的效率比栈要低得多。</p>
-<p><strong>（6）申请后系统的响应</strong></p>
-<p>栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。<br>堆：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。</p>
-<p><strong>（7）堆和栈中的存储内容</strong></p>
-<p>栈：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。<br>堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容由程序员安排。</p>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013007900/article/details/79338653">https://blog.csdn.net/u013007900/article/details/79338653</a></p>
-<p>《王道程序员面试宝典》</p>
+<p>（2）const修饰成员函数，它不改变对象的成员变量. 也不能调用类中任何非const成员函数</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">void getAge()const;           //该成员函数无法改变类成员变量的值，在不改变类的值的函数后面加上const，养成习惯
+</code></pre>
+<p>（3）const修饰类的对象，该对象只能调用类内const成员函数，另外类内任何成员都不能改变</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A
+&#123;
+public:
+    A()&#123;cout << "non-const" << endl;&#125;
+    void test() const&#123;cout << "const" << endl;&#125; 
+&#125;;
+
+int main(int argc, char *argv[])
+&#123;
+    const A a1;
+    a1.test();                     //只能调用const成员函数
+    return 0;
+&#125;
+</code></pre>
 
             </div>
             <hr/>
@@ -424,7 +453,7 @@ int  main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/10/07/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F/">https://dymzcc.github.io/2020/10/07/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F/</a>
+                    <a href="https://dymzcc.github.io/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">https://dymzcc.github.io/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -631,9 +660,10 @@ int  main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
@@ -654,9 +684,9 @@ const int age = 20;
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -669,6 +699,7 @@ const int age = 20;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -687,20 +718,19 @@ const int age = 20;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/07/%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E4%B8%8E%E8%BD%AC%E7%A7%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
+                <a href="/2020/10/07/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="右值与转移构造函数">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="内存分配">
                         
-                        <span class="card-title">右值与转移构造函数</span>
+                        <span class="card-title">内存分配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 左值、右值、左值引用、右值引用左值：它表示一个可被标识的（变量或对象的）内存位置，并且允许使用&amp;操作符来获取这块内存的地址
-右值：如果一个表达式不是左值，那就是右值
-左值引用：对一个左值进行引用的类型，声明符号为”&amp;”
+                            1. 内存分区（1）堆：由程序员手动分配和释放，完全不同于数据结构中的堆，分配方式类似链表。由malloc或new来分配，由free或delete释放。如果程序员不释放，程序结束时由系统释放。
+（2）栈：由编译器自动分配和释放，存放函数的参
                         
                     </div>
                     <div class="publish-info">
