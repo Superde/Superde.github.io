@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="const关键字, 三环三星">
+    <meta name="keywords" content="static关键字, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>const关键字 | 三环三星</title>
+    <title>static关键字 | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">const关键字</h1>
+                    <h1 class="description center-align post-title">static关键字</h1>
                 </div>
             </div>
         </div>
@@ -361,73 +361,124 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1-基本数据类型与const"><a href="#1-基本数据类型与const" class="headerlink" title="1. 基本数据类型与const"></a>1. 基本数据类型与const</h4><p>（1）const修饰变量，含义是const修饰的对象的值不可变</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">int const age = 20;
-const int age = 20;
-</code></pre>
-<p>（2）const的对象是文件局部变量，只能用于本编译模块，使用extern const声明该常量可以作用于其他编译模块，即被其他文件访问</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">extern const int age = 20;
-//extern用于告诉编译器存在着一个变量或者函数，当前编译语句前如果没有定义的话，那么该变量或者函数定义在文件的后头或者其它文件中，即提示编译器遇到此变量和函数时在其他模块中寻找其定义。
-</code></pre>
-<h4 id="2-指针与const"><a href="#2-指针与const" class="headerlink" title="2. 指针与const"></a>2. 指针与const</h4><p>（1）指针本身是常量，所指对象不可变，但是对象的值可以变，这种指针在声明时必须初始化</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">int c = 20;
-int* const age = &c;
-</code></pre>
-<p>（2）指针指向的内容是常量，不可变</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">const int* age;
-</code></pre>
-<p>（3）二者都不可变</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">int c = 20;
-const int* const age = &c;
-</code></pre>
-<p>如果const位于*的右侧，指针本身是常量</p>
-<p>如果const位于*的左侧，指针指向常量；</p>
-<h4 id="3-引用与const"><a href="#3-引用与const" class="headerlink" title="3. 引用与const"></a>3. 引用与const</h4><p>&emsp;&emsp;const引用就是指向const对象的引用，普通引用无法绑定到const对象上，但const引用可以绑定到非const对象上</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">int var1 = 1, var2 = 2;
-int &a = 0;                                     // 一般引用无法绑定到字面值常量
-const int &b = 0;                         //const引用可以绑定字面常量值
-int &c = var1 + var2;                 //错误，左值引用不可绑定右值
-const int &d = var1 + var2;     //const引用可以绑定右值
-</code></pre>
-<h4 id="4-函数与const"><a href="#4-函数与const" class="headerlink" title="4. 函数与const"></a>4. 函数与const</h4><p>（1）const修饰函数的参数</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">void function(const int var);         //传递过来的参数在函数内无法改变，无意义，因为var本来就是形参
-
-void function(const int* var);        //参数指针所指内容为常量，不可变
-
-void function(int* const var);        //参数指针本身为常量，不可变，也无意义，因为指针也是形参
-
-void function(const int& var);        //引用参数在函数内为常量不可变
-</code></pre>
-<p>（2）const修饰函数返回值，令函数返回值为一个常量</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">const int fun1();             //无意义，参数返回本身就是赋值
-const int* fun2();            //指针指向函数，指针内容不可变
-int* const fun3();            //指针指向函数，指针本身不可变
-</code></pre>
-<h4 id="5-类与const"><a href="#5-类与const" class="headerlink" title="5. 类与const"></a>5. 类与const</h4><p>（1）const修饰成员变量，表示成员常量，不能被修改，只能在初始化列表中赋值</p>
+                <h4 id="1-面向对象的静态成员变量"><a href="#1-面向对象的静态成员变量" class="headerlink" title="1. 面向对象的静态成员变量"></a>1. 面向对象的静态成员变量</h4><p>&emsp;&emsp;在类内成员变量的声明前加上关键字static，该数据成员就是类内的静态数据成员。</p>
 <pre class=" language-lang-C++"><code class="language-lang-C++">class A&#123;
-  const int age;            //成员常量不能被修改，只能在初始化的时候赋值
+  static int num;     //声明静态数据成员
   ...
-  A(int x):age(x)&#123;&#125;;
 &#125;
+int A::num = 0;       //类外定义并初始化静态数据成员，此时不加static
 </code></pre>
-<p>（2）const修饰成员函数，它不改变对象的成员变量. 也不能调用类中任何非const成员函数</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">void getAge()const;           //该成员函数无法改变类成员变量的值，在不改变类的值的函数后面加上const，养成习惯
-</code></pre>
-<p>（3）const修饰类的对象，该对象只能调用类内const成员函数，另外类内任何成员都不能改变</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">class A
-&#123;
+<p><strong>静态成员变量的特点：</strong></p>
+<ol>
+<li>静态成员变量是该类的所有对象所共有的，静态成员变量定义在全局（静态）存储区，不属于特定的类对象，也不占对象的内存</li>
+<li>在类的实例没有生成时，静态成员变量就已经存在，可以通过A::num就能访问</li>
+<li>静态成员变量存储在全局（静态）存储区，static成员变量的内存是在初始化的时候分配的，因此静态成员变量必须初始化，而且只能在类体外进行。</li>
+<li>静态成员变量的访问方式：（1）类名::静态数据成员名（2）类对象名.静态数据成员名</li>
+<li>静态数据成员和普通数据成员一样遵从public、protected、private访问规则</li>
+<li>sizeof运算符不会计算静态成员变量</li>
+</ol>
+<p><strong>静态数据成员的作用：</strong></p>
+<ol>
+<li>把所有对象共享的成员分配在全局（静态）存储区，节省了存储空间</li>
+<li>一变多变，只需要改变一次，就能改变所有对象的相应的值</li>
+</ol>
+<p><strong>与全局变量相比：</strong></p>
+<ol>
+<li>静态成员变量没有进入程序的全局命名空间，因此不存在与程序中其它全局命名冲突的可能</li>
+<li>可以实现信息隐藏。静态成员变量可以是private成员，而全局变量不能</li>
+</ol>
+<h4 id="2-面向对象的静态成员函数"><a href="#2-面向对象的静态成员函数" class="headerlink" title="2. 面向对象的静态成员函数"></a>2. 面向对象的静态成员函数</h4><p>&emsp;&emsp;在类内成员函数声明前加static，该成员函数就是静态成员函数。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class sutdent&#123;
 public:
-    A()&#123;cout << "non-const" << endl;&#125;
-    void test() const&#123;cout << "const" << endl;&#125; 
-&#125;;
-
-int main(int argc, char *argv[])
-&#123;
-    const A a1;
-    a1.test();                     //只能调用const成员函数
-    return 0;
+  int score;
+  static int num;
+  static int sum
+  static int ave();
+  student(int score)&#123;
+    this->score = score;
+    num++;
+    sum+=score;
+  &#125;
+&#125;
+int student::num=0;
+int student::sum=0;
+int ave()&#123;
+  return sum/num;
 &#125;
 </code></pre>
+<p><strong>静态成员函数的特点：</strong></p>
+<ol>
+<li>静态成员函数属于类本身，属于类定义的一部分，不具体作用于类的某个特定对象，在类的对象实例化前已存在，可以通过类名访问</li>
+<li>普通成员函数隐含一个this指针，指向类的对象本身。而静态成员函数不作用于具体对象，因此不存在this指针</li>
+<li>声明在类内，定义并初始化在类外，且类外定义时不加static</li>
+<li>静态成员函数可以访问静态成员函数、静态成员变量，不能访问非静态成员函数、非静态成员变量；非静态成员函数可以任意访问</li>
+<li>调用静态成员函数方法：（1）对象名.静态成员函数名（参数表）；对象名-&gt;静态成员函数名（参数表）（2）类名::静态成员函数名（参数表）</li>
+</ol>
+<h4 id="3-面向过程的静态全局变量"><a href="#3-面向过程的静态全局变量" class="headerlink" title="3. 面向过程的静态全局变量"></a>3. 面向过程的静态全局变量</h4><p>&emsp;&emsp;在全局变量前，加上关键字static，该变量就被定义成一个静态全局变量</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">static int n;        //定义静态全局变量
+void fn()&#123;
+    n++;
+    cout<<n<<endl;
+&#125; 
+void main()&#123;
+  n = 20;
+  cout<<n<<endl;
+  fn();
+&#125;
+</code></pre>
+<p><strong>静态全局变量的作用：</strong></p>
+<ol>
+<li>静态全局变量不能被其它文件所用</li>
+<li>其它文件中可以定义相同名字的变量，不会发生冲突</li>
+</ol>
+<h4 id="4-面向过程的静态局部变量"><a href="#4-面向过程的静态局部变量" class="headerlink" title="4. 面向过程的静态局部变量"></a>4. 面向过程的静态局部变量</h4><p>&emsp;&emsp;在局部变量前，加上关键字static，该变量就被定义成为一个静态局部变量</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">void fn()&#123;
+  static n = 10;
+  cout<<n<<endl;
+  n++;
+&#125;
+void main()&#123;
+  fn();           //10
+  fn();                        //11
+  fn();                        //11
+&#125;
+</code></pre>
+<p>&emsp;&emsp;通常在函数体内定义一个变量，每当程序运行到该语句时都会给该局部变量分配栈内存，但随着程序退出函数体，系统就会收回栈内存，局部变量也相应失效。</p>
+<p>&emsp;&emsp;静态局部变量保存在全局（静态）存储区，而不是保存在栈内，每次的值可以保持到下一次调用，直到下次赋值。</p>
+<p><strong>静态局部变量特点：</strong></p>
+<ol>
+<li>静态局部变量在全局数据区分配内存</li>
+<li>静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化</li>
+<li>静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0</li>
+<li>静态局部变量始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，当定义它的函数或语句块结束时，其作用域随之结束</li>
+</ol>
+<h4 id="5-面向过程的静态函数"><a href="#5-面向过程的静态函数" class="headerlink" title="5. 面向过程的静态函数"></a>5. 面向过程的静态函数</h4><p>&emsp;&emsp;在函数的返回类型前加上static关键字,函数即被定义为静态函数。静态函数与普通函数不同，它只能在声明它的文件当中可见，不能被其它文件使用。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">static void fn()&#123;        //定义静态函数
+  int n = 10;
+  cout<<n<<endl;
+&#125;
+</code></pre>
+<p><strong>静态函数的作用：</strong></p>
+<ol>
+<li>静态函数不能被其它文件所用；</li>
+<li>其它文件中可以定义相同名字的函数，不会发生冲突；</li>
+</ol>
+<h4 id="6-全局变量、局部变量、静态全局变量、静态局部变量"><a href="#6-全局变量、局部变量、静态全局变量、静态局部变量" class="headerlink" title="6. 全局变量、局部变量、静态全局变量、静态局部变量"></a>6. 全局变量、局部变量、静态全局变量、静态局部变量</h4><p>C++中作用域可分为6种：全局作用域、局部作用域、语句作用域、类作用域、命名空间作用域、文件作用域</p>
+<p><strong>（1）从作用域角度看不同：</strong></p>
+<p>&emsp;&emsp;全局变量具有全局作用域，只要在一个文件中定义，就可以作用于所有的文件，不过其他文件中需要extern声明这个全局变量</p>
+<p>&emsp;&emsp;局部变量具有局部作用域，只在函数执行期间存在，函数的一次调用结束后，变量撤销，该内存也销毁</p>
+<p>&emsp;&emsp;静态全局变量具有全局作用域，它只作用于定义它的文件里，不能作用到其他文件</p>
+<p>&emsp;&emsp;静态局部变量具有局部作用域，它只被初始化一次，然后到程序结束一直存在。全局变量是对所有的函数都是可见的，静态局部变量支队定义自己的函数始终可见</p>
+<p><strong>（2）从分配内存角度看不同</strong></p>
+<p>&emsp;&emsp;全局变量、静态全局变量、静态局部变量都存储在全局（静态）存储区中，局部变量存储在栈中</p>
+<p><strong>（3）Tips：</strong></p>
+<ol>
+<li>若全局变量仅在单个C文件中访问，则可以将这个变量修改为静态全局变量，以降低模块间的耦合度</li>
+<li>若全局变量仅由单个函数访问，则可以将这个变量改为该函数的静态局部变量，以降低模块间的耦合度</li>
+</ol>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37439983">https://zhuanlan.zhihu.com/p/37439983</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/note/36010">https://www.runoob.com/note/36010</a></p>
 
             </div>
             <hr/>
@@ -453,7 +504,7 @@ int main(int argc, char *argv[])
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">https://dymzcc.github.io/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/</a>
+                    <a href="https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/">https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -660,9 +711,10 @@ int main(int argc, char *argv[])
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/">
                     <div class="card-image">
@@ -683,9 +735,9 @@ class A&#123;
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -698,6 +750,7 @@ class A&#123;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -716,19 +769,22 @@ class A&#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/07/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F/">
+                <a href="/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="内存分配">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="const关键字">
                         
-                        <span class="card-title">内存分配</span>
+                        <span class="card-title">const关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 内存分区（1）堆：由程序员手动分配和释放，完全不同于数据结构中的堆，分配方式类似链表。由malloc或new来分配，由free或delete释放。如果程序员不释放，程序结束时由系统释放。
-（2）栈：由编译器自动分配和释放，存放函数的参
+                            1. 基本数据类型与const（1）const修饰变量，含义是const修饰的对象的值不可变
+int const age = 20;
+const int age = 20;
+
+（2）const的对象是文件局部变量，只能用于本编译模块，使用e
                         
                     </div>
                     <div class="publish-info">
