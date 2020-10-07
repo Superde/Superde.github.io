@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="new/delete和malloc/free, 三环三星">
+    <meta name="keywords" content="右值与转移构造函数, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>new/delete和malloc/free | 三环三星</title>
+    <title>右值与转移构造函数 | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">new/delete和malloc/free</h1>
+                    <h1 class="description center-align post-title">右值与转移构造函数</h1>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-06
+                    2020-10-07
                 </div>
                 
 
@@ -361,21 +361,97 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1-malloc-free"><a href="#1-malloc-free" class="headerlink" title="1. malloc/free"></a>1. malloc/free</h4><p>&emsp;&emsp;在C语言中，需要动态开辟内存时，可以调用malloc函数()，从堆里获得空间，即malloc函数返回指向堆里面一块内存的指针。操作系统中有一个记录空闲内存地址的链表，如果收到获取内存空间的请求，就会遍历这个链表，找到第一个空间大于申请空间的堆结点，然后将该节点从链表中删除，并返回指向该空间的指针。</p>
-<p>&emsp;&emsp;在使用malloc分配内存空间后，一定要使用free()函数释放内存空间，否则就会内存泄露。另外，free()释放的是内存空间，并没有释放指向该空间的指针，如果不在释放内存后将该指针指向NULL，就会形成悬空指针。</p>
-<h4 id="2-内部数据对象和非内部数据对象"><a href="#2-内部数据对象和非内部数据对象" class="headerlink" title="2. 内部数据对象和非内部数据对象"></a>2. 内部数据对象和非内部数据对象</h4><p>&emsp;&emsp;简单来说：内部数据对象就是编译器本来就认识的，不需要用户自己定义；非内部数据类型不是编译器本来就认识的，需要用户自己定义才能让编译器识别。</p>
-<p>&emsp;&emsp;malloc/free是标准库函数，只负责分配内存，编译器不会对其进行编译检查。类的对象的生成和消亡需要分别调用构造函数和析构函数，需要编译器进行编译检查，因此malloc/free无法执行构造函数和析构函数。因此引入new/delete运算符。</p>
-<h4 id="3-new-delete"><a href="#3-new-delete" class="headerlink" title="3. new/delete"></a>3. new/delete</h4><p>&emsp;&emsp;new/delete是操作符，与”+”、”-“一样，与malloc/free类似，可以用于申请动态内存和释放内存。</p>
-<p>（1）当使用new动态申请内存时：首先调用operator new标准库函数，据说这个标准库函数的底层实际上还是malloc，传入的参数为目标对象的大小；此时申请到的内存时未初始化的，接着就在这块内存上调用相应的构造函数；最后一步返回新分配并构造好的对象的指针</p>
-<p>（2）当使用delete释放内存时：调用对象的析构函数，然后调用operator delete标准库函数来释放该内存，同样据说这个标准库函数的底层实际上是free，传入的参数为对象的地址值</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">class A *p = new A(10);        //创建一个类的对象，返回其指针
-delete p;                      //释放该内存
-*p->NULL;                      //指向NULL
+                <h4 id="1-左值、右值、左值引用、右值引用"><a href="#1-左值、右值、左值引用、右值引用" class="headerlink" title="1. 左值、右值、左值引用、右值引用"></a>1. 左值、右值、左值引用、右值引用</h4><p>左值：它表示一个可被标识的（变量或对象的）内存位置，并且允许使用&amp;操作符来获取这块内存的地址</p>
+<p>右值：如果一个表达式不是左值，那就是右值</p>
+<p>左值引用：对一个左值进行引用的类型，声明符号为”&amp;”</p>
+<p>右值引用：对一个右值进行引用的类型，声明符号为”&amp;&amp;”，右值通常不具有名字，因此只能通过引用的方式找到它的存在</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int a;
+int &ref_a = a;         //左值引用
+
+int&& get();                //右值引用
+const int& val = get();     //也可以用const的左值引用来绑定一个右值
 </code></pre>
-<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/new:delete.png" alt="new:delete" style="zoom:50%;" /></p>
-<h4 id="4-二者的区别"><a href="#4-二者的区别" class="headerlink" title="4. 二者的区别"></a>4. 二者的区别</h4><p><strong>本质区别：</strong>new/delete是操作符，与”+”、”-“一样，malloc/free是标准库函数。</p>
-<p><strong>操作对象范围不同：</strong>new操作是分三步的：第一步申请内存，第二步调用构造函数初始化对象，第三步返回指向该对象的指针。delete操作同样：第一步调用析构函数，第二步销毁堆内存。对于这样需要调用构造函数和析构函数的对象来说，malloc/free无法满足要求。换言之 ， 对于非内部数据类型的对象而言，光用 malloc/free 无法满足动态对象的要求。对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。由于 malloc/free 是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于 malloc/free 。</p>
-<p><strong>用法不同：</strong>（1） new能够按照变量类型自动地分配所需空间长度，不必使用宏sizeof（2）new能够自动返回正确的指针类型（3）必须时，new能将单个变量初始化。</p>
+<p>右值引用的意义：</p>
+<ul>
+<li>为临时变量续命，右值会在表达式结束后消亡，如果继续使用右值，就会调用昂贵的拷贝构造函数</li>
+<li>右值引用是用来支持转移语义的，通过转移语义，临时对象中的资源能够转移到其他对象里（转移语义是和拷贝语义相对的，可以类比文件的剪切与拷贝，当我们将文件从一个目录拷贝到另一个目录时，速度比剪切慢很多）</li>
+</ul>
+<h4 id="2-转移构造函数"><a href="#2-转移构造函数" class="headerlink" title="2. 转移构造函数"></a>2. 转移构造函数</h4><p>&emsp;&emsp;假设已经实现了类MyClass：</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">MyClass fn();                                    // 返回MyClass对象的函数
+MyClass foo;                                    // 调用默认的构造函数
+MyClass bar = foo;                        // 调用Copy构造函数
+MyClass baz = fn();                        // 调用Move构造函数
+foo = bar;                                        // 调用Copy赋值操作符
+baz = MyClass();                            // 调用Move赋值操作符
+</code></pre>
+<p>&emsp;&emsp;函数fn()返回的对象和MyClass构造的对象都是非命名的临时对象，之前一般的操作是将该临时对象复制，然后摧毁临时对象。但是如果使用转移语义，就可以避免复制操作同时节省空间</p>
+<p>&emsp;&emsp;转移构造函数中只是对传进来的对象进行了所有权的转让，即掏空传进来的对象，然后把所有权转给当前对象（this指针指向的那个对象）</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class MyString &#123; 
+private: 
+ char* _data; 
+ size_t   _len; 
+ void _init_data(const char *s) &#123; 
+   _data = new char[_len+1]; 
+   memcpy(_data, s, _len); 
+   _data[_len] = '\0'; 
+ &#125; 
+public: 
+ MyString() &#123;                                 //默认构造函数
+   _data = NULL; 
+   _len = 0; 
+ &#125; 
+
+ MyString(const char* p) &#123;                    //拷贝构造函数
+   _len = strlen (p); 
+   _init_data(p); 
+ &#125; 
+ //注意：传入参数（右值）的资源链接和标记就会修改，否则右值的析构函数就会释放资源，转移到新对象的资源也就无效了
+MyString(MyString&& str) &#123;                       //转移构造函数
+   _len = str._len; 
+   _data = str._data; 
+   str._len = 0; 
+   str._data = NULL; 
+&#125;
+
+MyString& operator=(MyString&& str) &#123;          //转移赋值操作符
+   if (this != &str) &#123; 
+     _len = str._len; 
+     _data = str._data; 
+     str._len = 0; 
+     str._data = NULL; 
+   &#125; 
+   return *this; 
+&#125;
+
+virtual ~MyString() &#123; 
+   if (_data) free(_data); 
+ &#125; 
+&#125;; 
+
+int main() &#123; 
+ MyString a; 
+ a = MyString("Hello"); 
+ MyString b = MyString("Test");       
+ std::vector<MyString> vec; 
+ vec.push_back(MyString("World")); 
+&#125;
+</code></pre>
+<p>&emsp;&emsp;MyString(“Hello”) 和 MyString(“World”) 都是临时对象，也就是右值。虽然它们是临时的，但程序仍然调用了拷贝构造和拷贝赋值，造成了没有意义的资源申请和释放的操作。如果能够直接使用临时对象已经申请的资源，既能节省资源，有能节省资源申请和释放的时间。这正是定义转移语义的目的。</p>
+<p>注意：C++编译器对调用转移构造函数的情况进行优化，即返回值优化，如果函数的返回值被用于初始化另外一个对象，这种情况下，不会调用转移构造函数，会直接调用构造函数。</p>
+<h4 id="3-std-move"><a href="#3-std-move" class="headerlink" title="3. std::move"></a>3. std::move</h4><p>&emsp;&emsp;所有的命名对象都是左值引用，而编译器只对右值引用才会调用转移语义。如果能够确定一个命名对象将不再被使用，就可以对它调用转移语义，也就是把一个左值当作右值引用来使用。为了实现这种用法，C++标准库提供了函数std::move，这个函数将左值引用转为右值引用。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">template <class T> swap(T& a, T& b) &#123;
+    T tmp(a);    //copy a to tmp
+    a = b;        //copy b to a
+    b = tmp;    //copy tmp to b
+&#125;
+
+//通过使用std::move避免了3次不必要的拷贝操作
+template <class T> swap(T& a, T& b) &#123;
+    T tmp(std::move(a));    //move a to tmp
+    a = std::move(b);         //move b to a
+    b = std::move(tmp);        //move tmp to b
+&#125;
+</code></pre>
 
             </div>
             <hr/>
@@ -401,7 +477,7 @@ delete p;                      //释放该内存
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/10/06/new:delete/">https://dymzcc.github.io/2020/10/06/new:delete/</a>
+                    <a href="https://dymzcc.github.io/2020/10/07/%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E4%B8%8E%E8%BD%AC%E7%A7%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">https://dymzcc.github.io/2020/10/07/%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E4%B8%8E%E8%BD%AC%E7%A7%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -608,9 +684,10 @@ delete p;                      //释放该内存
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/10/07/%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E4%B8%8E%E8%BD%AC%E7%A7%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
@@ -629,9 +706,9 @@ delete p;                      //释放该内存
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -644,6 +721,7 @@ delete p;                      //释放该内存
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -662,30 +740,30 @@ delete p;                      //释放该内存
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/12/Overlapping%20Community%20Detection%20Based%20on%20Random%20Walk%20and%20Seeds%20Extension/">
+                <a href="/2020/10/06/new:delete/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0223.JPG" class="responsive-img" alt="Overlapping Community Detection Based on Random Walk and Seeds Extension">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="new/delete和malloc/free">
                         
-                        <span class="card-title">Overlapping Community Detection Based on Random Walk and Seeds Extension</span>
+                        <span class="card-title">new/delete和malloc/free</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Overlapping Community Detection Based on Random Walk and Seeds Extension种子拓展的局部社区发现算法&emsp;&emsp;全局的社区发现方法有：层次聚类算法，谱方法，基
+                            1. malloc/free&emsp;&emsp;在C语言中，需要动态开辟内存时，可以调用malloc函数()，从堆里获得空间，即malloc函数返回指向堆里面一块内存的指针。操作系统中有一个记录空闲内存地址的链表，如果收到获取内存空间的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" class="post-category">
-                                    论文阅读
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
@@ -695,8 +773,8 @@ delete p;                      //释放该内存
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Community-Detection/">
-                        <span class="chip bg-color">Community Detection</span>
+                    <a href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">
+                        <span class="chip bg-color">碎碎念</span>
                     </a>
                     
                 </div>
