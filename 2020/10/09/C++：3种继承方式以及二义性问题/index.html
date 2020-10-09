@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="static关键字, 三环三星">
+    <meta name="keywords" content="继承方式以及二义性问题, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>static关键字 | 三环三星</title>
+    <title>继承方式以及二义性问题 | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">static关键字</h1>
+                    <h1 class="description center-align post-title">继承方式以及二义性问题</h1>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-07
+                    2020-10-09
                 </div>
                 
 
@@ -361,124 +361,60 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1-面向对象的静态成员变量"><a href="#1-面向对象的静态成员变量" class="headerlink" title="1. 面向对象的静态成员变量"></a>1. 面向对象的静态成员变量</h4><p>&emsp;&emsp;在类内成员变量的声明前加上关键字static，该数据成员就是类内的静态数据成员。</p>
+                <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>&emsp;&emsp;C++中，一个派生类可以从一个基类派生，称为单继承，也可以从多个基类派生，称为多继承</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class <派生类名>:<继承方式> <基类名>&#123;        //单继承
+  派生类新定义成员；
+&#125;;
+class <派生类名>:<继承方式1> <基类名1>，<继承方式2> <基类名2>&#123;      //多继承
+  派生类新定义成员;
+&#125;;
+</code></pre>
+<p>继承方式有3中：private、protected、public，3中继承方式下派生类对基类成员的访问权限如下：</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/3种派生方式的访问权限.png" alt="3种派生方式的访问权限"></p>
+<p>记住：无论哪种方式，基类中的私有成员都不允许派生类继承，即在派生类中不可见</p>
+<p>&emsp;&emsp;派生类对基类成员的访问形式主要有以下两种：</p>
+<p>（1）内部访问：由派生类中新增的成员函数对基类继承来的成员的访问</p>
+<p>（2）对象访问：在派生类外部，通过派生类的对象对从基类继承来的成员的访问</p>
+<h4 id="1-公有继承"><a href="#1-公有继承" class="headerlink" title="1. 公有继承"></a>1. 公有继承</h4><ol>
+<li>父类的public成员成为子类的public成员，可以被子类中的函数及其友元函数访问（内部访问），还可以由该子类对象访问（外部访问）</li>
+<li>父类的private成员仍是父类的private成员，子类成员不可访问，包括子类中的函数、友元函数、子类对象</li>
+<li>父类的protected成员成为子类的protected成员，可以被子类中的函数及其友元函数访问，但是不可以由子类的对象访问</li>
+</ol>
+<p>&emsp;&emsp;在公有继承中，派生类的对象只能访问基类中的公有成员，派生类的成员函数可以访问基类中的公有成员和保护成员。</p>
+<h4 id="2-私有继承"><a href="#2-私有继承" class="headerlink" title="2. 私有继承"></a>2. 私有继承</h4><p>&emsp;&emsp;私有继承的特点是基类的公有成员和保护成员都作为派生类的私有成员，并且不能被这个派生类的子类所继承</p>
+<h4 id="3-保护继承"><a href="#3-保护继承" class="headerlink" title="3. 保护继承"></a>3. 保护继承</h4><p>&emsp;&emsp;保护继承的特点是基类的所有公有成员和保护成员都成为派生类的保护成员，并且只能被它的派生类成员函数或友元访问，基类的私有成员仍然是私有的</p>
+<h2 id="二义性问题"><a href="#二义性问题" class="headerlink" title="二义性问题"></a>二义性问题</h2><h4 id="1-多基继承"><a href="#1-多基继承" class="headerlink" title="1. 多基继承"></a>1. 多基继承</h4><p>&emsp;&emsp;当继承基类时，在派生类中就获得了基类所有数据成员的副本，该副本称为子对象。如果一个派生类C继承了基类A和基类B，这时候类C就包含了A的子对象和B的子对象。假设基类A和基类B中有同名函数show()，这时候派生类调用show()时，编译器无法决定选择A中的show()还是B中的show()。</p>
+<p>&emsp;&emsp;这时候可以使用作用域运算符来消除二义性，A::show()或这B::show()</p>
 <pre class=" language-lang-C++"><code class="language-lang-C++">class A&#123;
-  static int num;     //声明静态数据成员
-  ...
-&#125;
-int A::num = 0;       //类外定义并初始化静态数据成员，此时不加static
-</code></pre>
-<p><strong>静态成员变量的特点：</strong></p>
-<ol>
-<li>静态成员变量是该类的所有对象所共有的，静态成员变量定义在全局（静态）存储区，不属于特定的类对象，也不占对象的内存</li>
-<li>在类的实例没有生成时，静态成员变量就已经存在，可以通过A::num就能访问</li>
-<li>静态成员变量存储在全局（静态）存储区，static成员变量的内存是在初始化的时候分配的，因此静态成员变量必须初始化，而且只能在类体外进行。</li>
-<li>静态成员变量的访问方式：（1）类名::静态数据成员名（2）类对象名.静态数据成员名</li>
-<li>静态数据成员和普通数据成员一样遵从public、protected、private访问规则</li>
-<li>sizeof运算符不会计算静态成员变量</li>
-</ol>
-<p><strong>静态数据成员的作用：</strong></p>
-<ol>
-<li>把所有对象共享的成员分配在全局（静态）存储区，节省了存储空间</li>
-<li>一变多变，只需要改变一次，就能改变所有对象的相应的值</li>
-</ol>
-<p><strong>与全局变量相比：</strong></p>
-<ol>
-<li>静态成员变量没有进入程序的全局命名空间，因此不存在与程序中其它全局命名冲突的可能</li>
-<li>可以实现信息隐藏。静态成员变量可以是private成员，而全局变量不能</li>
-</ol>
-<h4 id="2-面向对象的静态成员函数"><a href="#2-面向对象的静态成员函数" class="headerlink" title="2. 面向对象的静态成员函数"></a>2. 面向对象的静态成员函数</h4><p>&emsp;&emsp;在类内成员函数声明前加static，该成员函数就是静态成员函数。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">class sutdent&#123;
 public:
-  int score;
-  static int num;
-  static int sum
-  static int ave();
-  student(int score)&#123;
-    this->score = score;
-    num++;
-    sum+=score;
-  &#125;
-&#125;
-int student::num=0;
-int student::sum=0;
-int ave()&#123;
-  return sum/num;
+  void show()&#123;cout<<"A"<<endl;&#125;
+&#125;;
+class B&#123;
+public:
+  void show()&#123;cout<<"B"<<endl;&#125;
+&#125;;
+class C:public A,public B&#123;&#125;;
+int main()&#123;
+    C c;
+  c.show();      //错误，直接调用，会有二义性
+  c.A::show();   //正确，使用作用域运算符来消除二义性
 &#125;
 </code></pre>
-<p><strong>静态成员函数的特点：</strong></p>
-<ol>
-<li>静态成员函数属于类本身，属于类定义的一部分，不具体作用于类的某个特定对象，在类的对象实例化前已存在，可以通过类名访问</li>
-<li>普通成员函数隐含一个this指针，指向类的对象本身。而静态成员函数不作用于具体对象，因此不存在this指针</li>
-<li>声明在类内，定义并初始化在类外，且类外定义时不加static</li>
-<li>静态成员函数可以访问静态成员函数、静态成员变量，不能访问非静态成员函数、非静态成员变量；非静态成员函数可以任意访问</li>
-<li>调用静态成员函数方法：（1）对象名.静态成员函数名（参数表）；对象名-&gt;静态成员函数名（参数表）（2）类名::静态成员函数名（参数表）</li>
-</ol>
-<h4 id="3-面向过程的静态全局变量"><a href="#3-面向过程的静态全局变量" class="headerlink" title="3. 面向过程的静态全局变量"></a>3. 面向过程的静态全局变量</h4><p>&emsp;&emsp;在全局变量前，加上关键字static，该变量就被定义成一个静态全局变量</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">static int n;        //定义静态全局变量
-void fn()&#123;
-    n++;
-    cout<<n<<endl;
-&#125; 
-void main()&#123;
-  n = 20;
-  cout<<n<<endl;
-  fn();
-&#125;
+<p>&emsp;&emsp;方法二，直接在派生类C中定义重名函数，用内层函数覆盖外层函数</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class C : public A,public B&#123;
+public:
+  void show()&#123;cout<<A::show()<<endl;&#125;
+&#125;;
 </code></pre>
-<p><strong>静态全局变量的作用：</strong></p>
-<ol>
-<li>静态全局变量不能被其它文件所用</li>
-<li>其它文件中可以定义相同名字的变量，不会发生冲突</li>
-</ol>
-<h4 id="4-面向过程的静态局部变量"><a href="#4-面向过程的静态局部变量" class="headerlink" title="4. 面向过程的静态局部变量"></a>4. 面向过程的静态局部变量</h4><p>&emsp;&emsp;在局部变量前，加上关键字static，该变量就被定义成为一个静态局部变量</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">void fn()&#123;
-  static n = 10;
-  cout<<n<<endl;
-  n++;
-&#125;
-void main()&#123;
-  fn();           //10
-  fn();                        //11
-  fn();                        //11
-&#125;
+<h4 id="2-菱形继承"><a href="#2-菱形继承" class="headerlink" title="2. 菱形继承"></a>2. 菱形继承</h4><p>&emsp;&emsp;如果派生类B和派生类C都是从相同的基类A派生而来，派生类D由类B和类C派生而来。类B和类C都包含了A的子对象，所以类D就会包含类A的两个子对象，即增加了存储空间又引入了二义性，虽然可以用B::show()这样的方法来解决一些问题，但是在调用基类A函数的时候，编译器就无法判断是调用类B还是类C继承的基类函数。</p>
+<p><img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/img/菱形继承的二义性.png" alt="菱形继承的二义性" style="zoom: 33%;" /></p>
+<p>&emsp;&emsp;这时候就要使用虚基类了，虚继承是一种机制，给定虚基类，不论该类在派生类中作为虚基类出现多少次，只继承一个共享的基类子对象，这样类D就只有一份A的子对象了。虚基类用virtual声明继承关系就行了。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A&#123;&#125;;
+class B : virtual public A&#123;&#125;;        //A是B的虚基类
+class C : virtual public A&#123;&#125;;                 //A是C的虚基类
+class D : public B,public C&#123;&#125;;             //D继承B和C，只继承A一次
 </code></pre>
-<p>&emsp;&emsp;通常在函数体内定义一个变量，每当程序运行到该语句时都会给该局部变量分配栈内存，但随着程序退出函数体，系统就会收回栈内存，局部变量也相应失效。</p>
-<p>&emsp;&emsp;静态局部变量保存在全局（静态）存储区，而不是保存在栈内，每次的值可以保持到下一次调用，直到下次赋值。</p>
-<p><strong>静态局部变量特点：</strong></p>
-<ol>
-<li>静态局部变量在全局数据区分配内存</li>
-<li>静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化</li>
-<li>静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0</li>
-<li>静态局部变量始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，当定义它的函数或语句块结束时，其作用域随之结束</li>
-</ol>
-<h4 id="5-面向过程的静态函数"><a href="#5-面向过程的静态函数" class="headerlink" title="5. 面向过程的静态函数"></a>5. 面向过程的静态函数</h4><p>&emsp;&emsp;在函数的返回类型前加上static关键字,函数即被定义为静态函数。静态函数与普通函数不同，它只能在声明它的文件当中可见，不能被其它文件使用。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">static void fn()&#123;        //定义静态函数
-  int n = 10;
-  cout<<n<<endl;
-&#125;
-</code></pre>
-<p><strong>静态函数的作用：</strong></p>
-<ol>
-<li>静态函数不能被其它文件所用；</li>
-<li>其它文件中可以定义相同名字的函数，不会发生冲突；</li>
-</ol>
-<h4 id="6-全局变量、局部变量、静态全局变量、静态局部变量"><a href="#6-全局变量、局部变量、静态全局变量、静态局部变量" class="headerlink" title="6. 全局变量、局部变量、静态全局变量、静态局部变量"></a>6. 全局变量、局部变量、静态全局变量、静态局部变量</h4><p>C++中作用域可分为6种：全局作用域、局部作用域、语句作用域、类作用域、命名空间作用域、文件作用域</p>
-<p><strong>（1）从作用域角度看不同：</strong></p>
-<p>&emsp;&emsp;全局变量具有全局作用域，只要在一个文件中定义，就可以作用于所有的文件，不过其他文件中需要extern声明这个全局变量</p>
-<p>&emsp;&emsp;局部变量具有局部作用域，只在函数执行期间存在，函数的一次调用结束后，变量撤销，该内存也销毁</p>
-<p>&emsp;&emsp;静态全局变量具有全局作用域，它只作用于定义它的文件里，不能作用到其他文件</p>
-<p>&emsp;&emsp;静态局部变量具有局部作用域，它只被初始化一次，然后到程序结束一直存在。全局变量是对所有的函数都是可见的，静态局部变量支队定义自己的函数始终可见</p>
-<p><strong>（2）从分配内存角度看不同</strong></p>
-<p>&emsp;&emsp;全局变量、静态全局变量、静态局部变量都存储在全局（静态）存储区中，局部变量存储在栈中</p>
-<p><strong>（3）Tips：</strong></p>
-<ol>
-<li>若全局变量仅在单个C文件中访问，则可以将这个变量修改为静态全局变量，以降低模块间的耦合度</li>
-<li>若全局变量仅由单个函数访问，则可以将这个变量改为该函数的静态局部变量，以降低模块间的耦合度</li>
-</ol>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37439983">https://zhuanlan.zhihu.com/p/37439983</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/note/36010">https://www.runoob.com/note/36010</a></p>
+<p>&emsp;&emsp;虚基类只是解决了基类重复继承的问题，如果涉及到B和C中有同名成员造成的二义性问题，还是参考多重继承的方法去解决。</p>
 
             </div>
             <hr/>
@@ -504,7 +440,7 @@ void main()&#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/">https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/</a>
+                    <a href="https://dymzcc.github.io/2020/10/09/C++%EF%BC%9A3%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%8C%E4%B9%89%E6%80%A7%E9%97%AE%E9%A2%98/">https://dymzcc.github.io/2020/10/09/C++%EF%BC%9A3%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%8C%E4%B9%89%E6%80%A7%E9%97%AE%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -715,19 +651,19 @@ void main()&#123;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/09/%E8%99%9A%E5%87%BD%E6%95%B0/">
+                <a href="/2020/10/09/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="虚函数">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="C++类型转换">
                         
-                        <span class="card-title">虚函数</span>
+                        <span class="card-title">C++类型转换</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 联编&emsp;&emsp;程序调用函数时，具体应使用哪个代码块是由编译器决定的，以函数重载为例，C++编译器根据传递给函数的参数和函数名决定具体使用哪一个函数，称为联编。
-&emsp;&emsp;编译器在编译过程中完成这种联编，称为
+                            类型转换&emsp;&emsp;C++中，类型转换大体上分为两种：隐式类型转换、显式类型转换
+1. 隐式类型转换&emsp;&emsp;隐式类型转换是编译器自动执行的，无需显式的操作符。隐式类型转换往往是安全的，并且带了便捷，但是可能产生意
                         
                     </div>
                     <div class="publish-info">
@@ -764,27 +700,25 @@ void main()&#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">
+                <a href="/2020/10/09/%E5%8A%A8%E6%80%81%E8%BF%90%E8%A1%8C%E6%97%B6%E7%B1%BB%E5%9E%8B%E8%AF%86%E5%88%AB/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="const关键字">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="运行时类型识别">
                         
-                        <span class="card-title">const关键字</span>
+                        <span class="card-title">运行时类型识别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 基本数据类型与const（1）const修饰变量，含义是const修饰的对象的值不可变
-int const age = 20;
-const int age = 20;
-
-（2）const的对象是文件局部变量，只能用于本编译模块，使用e
+                            运行时类型识别&emsp;&emsp;通过运行时类型识别（RTTI），程序能够使用基类的指针或引用来检索这些指针或引用所指对象的实际类型。
+RTTI机制产生的原因：
+&emsp;&emsp;C++本身是一种静态类型语言，数据类型是在编译期就
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
                             </span>
                         <span class="publish-author">
                             

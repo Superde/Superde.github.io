@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="static关键字, 三环三星">
+    <meta name="keywords" content="C++类型转换, 三环三星">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>static关键字 | 三环三星</title>
+    <title>C++类型转换 | 三环三星</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,7 +203,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">static关键字</h1>
+                    <h1 class="description center-align post-title">C++类型转换</h1>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-07
+                    2020-10-09
                 </div>
                 
 
@@ -361,124 +361,97 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1-面向对象的静态成员变量"><a href="#1-面向对象的静态成员变量" class="headerlink" title="1. 面向对象的静态成员变量"></a>1. 面向对象的静态成员变量</h4><p>&emsp;&emsp;在类内成员变量的声明前加上关键字static，该数据成员就是类内的静态数据成员。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">class A&#123;
-  static int num;     //声明静态数据成员
-  ...
+                <h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p>&emsp;&emsp;C++中，类型转换大体上分为两种：隐式类型转换、显式类型转换</p>
+<h2 id="1-隐式类型转换"><a href="#1-隐式类型转换" class="headerlink" title="1. 隐式类型转换"></a>1. 隐式类型转换</h2><p>&emsp;&emsp;隐式类型转换是编译器自动执行的，无需显式的操作符。隐式类型转换往往是安全的，并且带了便捷，但是可能产生意想不到的危险，因为很多时候甚至用户都不知道进行了哪些转换。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int a = 3;
+double b = 2.5;
+a + b;                      //a会被隐式转换成double类型
+
+void func(double a);
+func(1);                    //1被隐式转换成了double类型1.0
+
+double add(int a,int b)&#123;
+  return a + b;            //运算结果会被隐式转换成double类型返回
 &#125;
-int A::num = 0;       //类外定义并初始化静态数据成员，此时不加static
+
+class A&#123;&#125;;
+class B:public A&#123;&#125;;
+void func(A& a);
+B b;
+func(b);                   //子类对象替代父类对象
 </code></pre>
-<p><strong>静态成员变量的特点：</strong></p>
-<ol>
-<li>静态成员变量是该类的所有对象所共有的，静态成员变量定义在全局（静态）存储区，不属于特定的类对象，也不占对象的内存</li>
-<li>在类的实例没有生成时，静态成员变量就已经存在，可以通过A::num就能访问</li>
-<li>静态成员变量存储在全局（静态）存储区，static成员变量的内存是在初始化的时候分配的，因此静态成员变量必须初始化，而且只能在类体外进行。</li>
-<li>静态成员变量的访问方式：（1）类名::静态数据成员名（2）类对象名.静态数据成员名</li>
-<li>静态数据成员和普通数据成员一样遵从public、protected、private访问规则</li>
-<li>sizeof运算符不会计算静态成员变量</li>
-</ol>
-<p><strong>静态数据成员的作用：</strong></p>
-<ol>
-<li>把所有对象共享的成员分配在全局（静态）存储区，节省了存储空间</li>
-<li>一变多变，只需要改变一次，就能改变所有对象的相应的值</li>
-</ol>
-<p><strong>与全局变量相比：</strong></p>
-<ol>
-<li>静态成员变量没有进入程序的全局命名空间，因此不存在与程序中其它全局命名冲突的可能</li>
-<li>可以实现信息隐藏。静态成员变量可以是private成员，而全局变量不能</li>
-</ol>
-<h4 id="2-面向对象的静态成员函数"><a href="#2-面向对象的静态成员函数" class="headerlink" title="2. 面向对象的静态成员函数"></a>2. 面向对象的静态成员函数</h4><p>&emsp;&emsp;在类内成员函数声明前加static，该成员函数就是静态成员函数。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">class sutdent&#123;
+<p>&emsp;&emsp;这种数值类型的隐式转换，一般要满足低精度转换为高精度，否则会造成精读损失，影响最终结果。</p>
+<p>&emsp;&emsp;为了提高代码的质量与可靠性，Google C++编程规范对隐式类型转换的建议为：可接受单个参数的构造函数必须加上explicit标记，禁止隐式类型转换。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class student&#123;
 public:
-  int score;
-  static int num;
-  static int sum
-  static int ave();
-  student(int score)&#123;
-    this->score = score;
-    num++;
-    sum+=score;
-  &#125;
-&#125;
-int student::num=0;
-int student::sum=0;
-int ave()&#123;
-  return sum/num;
+  student();
+  explicit student(int age)&#123;&#125;
+&#125;;
+</code></pre>
+<h2 id="2-显式类型转换"><a href="#2-显式类型转换" class="headerlink" title="2. 显式类型转换"></a>2. 显式类型转换</h2><p>&emsp;&emsp;C风格的显式类型转换如下，但是不推荐使用，转化不明确，不能进行错误检查，容易出错。C++提供了4种强制类型转换操作符。</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">TypeName x = (TypeName) y;         //C风格的类型转换
+cast_name<type>(expression);       //C++风格的类型转换
+</code></pre>
+<p><strong>（1）static_cast</strong></p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">static_cast <new_type>(expression);     //使用方法
+
+double x = 3.14159;
+int a = static_cast<int>(x);            //一般来说，编译器隐式类型转换都可以用static_cast来转换
+</code></pre>
+<p>&emsp;&emsp;编写程序时需要明确的类型转换都可以使用static_cast，但是static_cast不能转换掉底层const，volatile和__unaligned属性。另外由于不提供运行时的检查，因此需要在编写程序时确认转换的安全性。</p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>用于类层次结构中，父类和子类之间指针和引用的转换；进行上行转换，把子类对象的指针/引用转换为父类指针/引用，这种转换是安全的；进行下行转换，把父类对象的指针/引用转换成子类指针/引用，这种转换是不安全的，需要编写程序时来确认</li>
+<li>用于基本数据类型之间的转换，例如把int转char，int转enum等，需要编写程序时来确认安全性</li>
+<li>把void指针转换成目标类型的指针（这是极其不安全的）</li>
+</ol>
+<p><strong>（2）const_cast</strong></p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">const_cast <new_type>(expression);        //使用方法，new_type必须为指针或引用
+
+const char *pc;
+char *p = const_cast<char*>(pc);
+</code></pre>
+<p>&emsp;&emsp;const_cast用于移除类型的const、volatile和_unaligned属性，其中new_type必须是一个指针、引用。也只有用const_cast才能移除const性质。</p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>常量指针被转换成非常量指针，并且仍然指向原来的对象</li>
+<li>常量引用被转换成非常量引用，并且仍然引用原来的对象</li>
+</ol>
+<p><strong>（3）reinterpret_cast</strong></p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">reinterpret_cast<new_type>(expression);    //使用方法
+
+int *ip;
+char *pc = reinterpret_cast<char*>(ip);
+</code></pre>
+<p>&emsp;&emsp;功能非常强大，万物皆可转，如int转指针，但是容易出问题，建议少用</p>
+<p><strong>（4）dynamic_cast</strong></p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">//new_type必须为类的指针、类的引用、void*
+//如果new_type是指针类型，expression也必须是指针；new_type是引用，expression也必须是引用
+dynamic_cast <new_type>(expression);
+</code></pre>
+<p>&emsp;&emsp;dynamic_cast只能用于有虚函数的类，<strong>dynamic_cast涉及运行时类型检查</strong>，具有一定的安全性，如果使用的类没有虚函数，如果绑定到引用或指针的对象的类型不是目标类型，都会出错。</p>
+<ol>
+<li>上行转换：子类向父类转换，非常安全</li>
+<li>下行转换：父类向子类转换。</li>
+</ol>
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A &#123; virtual void f()&#123;&#125;; &#125;;
+class B : public A&#123; &#125;;
+void main()
+&#123;
+     A* pA = new B;
+     B* pB = dynamic_cast<B*>(pA); 
 &#125;
 </code></pre>
-<p><strong>静态成员函数的特点：</strong></p>
 <ol>
-<li>静态成员函数属于类本身，属于类定义的一部分，不具体作用于类的某个特定对象，在类的对象实例化前已存在，可以通过类名访问</li>
-<li>普通成员函数隐含一个this指针，指向类的对象本身。而静态成员函数不作用于具体对象，因此不存在this指针</li>
-<li>声明在类内，定义并初始化在类外，且类外定义时不加static</li>
-<li>静态成员函数可以访问静态成员函数、静态成员变量，不能访问非静态成员函数、非静态成员变量；非静态成员函数可以任意访问</li>
-<li>调用静态成员函数方法：（1）对象名.静态成员函数名（参数表）；对象名-&gt;静态成员函数名（参数表）（2）类名::静态成员函数名（参数表）</li>
+<li>void*转换：有时候需要将指针转换为void*，在适合的时候将void*转换成目标类型指针</li>
 </ol>
-<h4 id="3-面向过程的静态全局变量"><a href="#3-面向过程的静态全局变量" class="headerlink" title="3. 面向过程的静态全局变量"></a>3. 面向过程的静态全局变量</h4><p>&emsp;&emsp;在全局变量前，加上关键字static，该变量就被定义成一个静态全局变量</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">static int n;        //定义静态全局变量
-void fn()&#123;
-    n++;
-    cout<<n<<endl;
-&#125; 
-void main()&#123;
-  n = 20;
-  cout<<n<<endl;
-  fn();
+<pre class=" language-lang-C++"><code class="language-lang-C++">class A &#123; virtual void f()&#123;&#125; &#125;;
+int main()
+&#123;
+     A *pA = new A;
+     void *pV = dynamic_cast<void *>(pA); 
 &#125;
 </code></pre>
-<p><strong>静态全局变量的作用：</strong></p>
-<ol>
-<li>静态全局变量不能被其它文件所用</li>
-<li>其它文件中可以定义相同名字的变量，不会发生冲突</li>
-</ol>
-<h4 id="4-面向过程的静态局部变量"><a href="#4-面向过程的静态局部变量" class="headerlink" title="4. 面向过程的静态局部变量"></a>4. 面向过程的静态局部变量</h4><p>&emsp;&emsp;在局部变量前，加上关键字static，该变量就被定义成为一个静态局部变量</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">void fn()&#123;
-  static n = 10;
-  cout<<n<<endl;
-  n++;
-&#125;
-void main()&#123;
-  fn();           //10
-  fn();                        //11
-  fn();                        //11
-&#125;
-</code></pre>
-<p>&emsp;&emsp;通常在函数体内定义一个变量，每当程序运行到该语句时都会给该局部变量分配栈内存，但随着程序退出函数体，系统就会收回栈内存，局部变量也相应失效。</p>
-<p>&emsp;&emsp;静态局部变量保存在全局（静态）存储区，而不是保存在栈内，每次的值可以保持到下一次调用，直到下次赋值。</p>
-<p><strong>静态局部变量特点：</strong></p>
-<ol>
-<li>静态局部变量在全局数据区分配内存</li>
-<li>静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化</li>
-<li>静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0</li>
-<li>静态局部变量始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，当定义它的函数或语句块结束时，其作用域随之结束</li>
-</ol>
-<h4 id="5-面向过程的静态函数"><a href="#5-面向过程的静态函数" class="headerlink" title="5. 面向过程的静态函数"></a>5. 面向过程的静态函数</h4><p>&emsp;&emsp;在函数的返回类型前加上static关键字,函数即被定义为静态函数。静态函数与普通函数不同，它只能在声明它的文件当中可见，不能被其它文件使用。</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++">static void fn()&#123;        //定义静态函数
-  int n = 10;
-  cout<<n<<endl;
-&#125;
-</code></pre>
-<p><strong>静态函数的作用：</strong></p>
-<ol>
-<li>静态函数不能被其它文件所用；</li>
-<li>其它文件中可以定义相同名字的函数，不会发生冲突；</li>
-</ol>
-<h4 id="6-全局变量、局部变量、静态全局变量、静态局部变量"><a href="#6-全局变量、局部变量、静态全局变量、静态局部变量" class="headerlink" title="6. 全局变量、局部变量、静态全局变量、静态局部变量"></a>6. 全局变量、局部变量、静态全局变量、静态局部变量</h4><p>C++中作用域可分为6种：全局作用域、局部作用域、语句作用域、类作用域、命名空间作用域、文件作用域</p>
-<p><strong>（1）从作用域角度看不同：</strong></p>
-<p>&emsp;&emsp;全局变量具有全局作用域，只要在一个文件中定义，就可以作用于所有的文件，不过其他文件中需要extern声明这个全局变量</p>
-<p>&emsp;&emsp;局部变量具有局部作用域，只在函数执行期间存在，函数的一次调用结束后，变量撤销，该内存也销毁</p>
-<p>&emsp;&emsp;静态全局变量具有全局作用域，它只作用于定义它的文件里，不能作用到其他文件</p>
-<p>&emsp;&emsp;静态局部变量具有局部作用域，它只被初始化一次，然后到程序结束一直存在。全局变量是对所有的函数都是可见的，静态局部变量支队定义自己的函数始终可见</p>
-<p><strong>（2）从分配内存角度看不同</strong></p>
-<p>&emsp;&emsp;全局变量、静态全局变量、静态局部变量都存储在全局（静态）存储区中，局部变量存储在栈中</p>
-<p><strong>（3）Tips：</strong></p>
-<ol>
-<li>若全局变量仅在单个C文件中访问，则可以将这个变量修改为静态全局变量，以降低模块间的耦合度</li>
-<li>若全局变量仅由单个函数访问，则可以将这个变量改为该函数的静态局部变量，以降低模块间的耦合度</li>
-</ol>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37439983">https://zhuanlan.zhihu.com/p/37439983</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/note/36010">https://www.runoob.com/note/36010</a></p>
 
             </div>
             <hr/>
@@ -504,7 +477,7 @@ void main()&#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/">https://dymzcc.github.io/2020/10/07/static%E5%85%B3%E9%94%AE%E5%AD%97/</a>
+                    <a href="https://dymzcc.github.io/2020/10/09/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">https://dymzcc.github.io/2020/10/09/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -711,29 +684,30 @@ void main()&#123;
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/10/09/%E8%99%9A%E5%87%BD%E6%95%B0/">
+                <a href="/2020/10/09/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="虚函数">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="C++类型转换">
                         
-                        <span class="card-title">虚函数</span>
+                        <span class="card-title">C++类型转换</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 联编&emsp;&emsp;程序调用函数时，具体应使用哪个代码块是由编译器决定的，以函数重载为例，C++编译器根据传递给函数的参数和函数名决定具体使用哪一个函数，称为联编。
-&emsp;&emsp;编译器在编译过程中完成这种联编，称为
+                            类型转换&emsp;&emsp;C++中，类型转换大体上分为两种：隐式类型转换、显式类型转换
+1. 隐式类型转换&emsp;&emsp;隐式类型转换是编译器自动执行的，无需显式的操作符。隐式类型转换往往是安全的，并且带了便捷，但是可能产生意
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -746,6 +720,7 @@ void main()&#123;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -764,27 +739,27 @@ void main()&#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/07/const%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/">
+                <a href="/2020/10/09/C++%EF%BC%9A3%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%8C%E4%B9%89%E6%80%A7%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
                         
-                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="const关键字">
+                        <img src="https://dede-photo.oss-cn-beijing.aliyuncs.com/background/IMG_0259.JPG" class="responsive-img" alt="继承方式以及二义性问题">
                         
-                        <span class="card-title">const关键字</span>
+                        <span class="card-title">继承方式以及二义性问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 基本数据类型与const（1）const修饰变量，含义是const修饰的对象的值不可变
-int const age = 20;
-const int age = 20;
-
-（2）const的对象是文件局部变量，只能用于本编译模块，使用e
+                            继承&emsp;&emsp;C++中，一个派生类可以从一个基类派生，称为单继承，也可以从多个基类派生，称为多继承
+class : &#123;        //单继承
+  派生类新定义成员；
+&#125;;
+class : ， &#123
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-09
                             </span>
                         <span class="publish-author">
                             
